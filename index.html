@@ -28,14 +28,14 @@ header,footer,.tip{display:none}
 /* v0.7: A compact map viewport avoids tall empty strips on phones. */
 .toolbar button{min-height:42px;min-width:42px;font-weight:650}
 .toolbar #reset{padding:8px 12px;white-space:nowrap;background:#28537e;border-color:#83b7ee}
-.mapwrap{overscroll-behavior:contain;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.mapwrap,.mapwrap svg{touch-action:none!important;overscroll-behavior:contain;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}html{overflow-x:hidden}
 @media(max-width:800px){
  .mapPanel{min-height:0}
  .mapwrap{height:min(112vw,580px);min-height:300px;max-height:none}
  .toolbar{top:8px;right:8px;gap:5px}
  .toolbar button{min-height:44px;min-width:44px}
 }
-</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 0.8</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search station / 搜尋車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search station / 搜尋車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾</button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections are approximate. No schedules, fares, or travel times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" width="1100" height="1140"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Stations are not at geographic scale · 示意路網圖</div></div></section></main><footer>Station order: <a href="https://www.krtc.com.tw/eng/Guide/guide_map">Kaohsiung Rapid Transit Corporation</a>. Urban TRA list: <a href="https://www.rb.gov.tw/en/main/en_Railway_Construction/20250505_171711/20251121_103828/20250507_100102/20250507_100102-1/">Taiwan Railway Bureau</a>. First prototype by ChatGPT; not affiliated with a transit operator.</footer><script>
+</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 1.0</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search station / 搜尋車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search station / 搜尋車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾</button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections are approximate, including R8–C8. No schedules, fares, or travel times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" width="1100" height="1140"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div></section></main><footer>Station order: <a href="https://www.krtc.com.tw/eng/Guide/guide_map">Kaohsiung Rapid Transit Corporation</a>. TRA locations are approximate. Urban TRA list: <a href="https://www.rb.gov.tw/en/main/en_Railway_Construction/20250505_171711/20251121_103828/20250507_100102/20250507_100102-1/">Taiwan Railway Bureau</a>. First prototype by ChatGPT; not affiliated with a transit operator.</footer><script>
 const DATA={"red": [["RK1", "Gangshan Station", "岡山車站"], ["R24", "Gangshan Medical University", "岡山高醫"], ["R23", "Ciaotou Station", "橋頭火車站"], ["R22A", "Ciaotou Sugar Refinery", "橋頭糖廠"], ["R22", "Cingpu", "青埔"], ["R21", "Metropolitan Park", "都會公園"], ["R20", "Houjing", "後勁"], ["R19", "Nanzih Technology Park", "楠梓科技園區"], ["R18", "Oil Refinery Elementary", "油廠國小"], ["R17", "World Games", "世運"], ["R16", "Zuoying", "左營"], ["R15", "Ecological District", "生態園區"], ["R14", "Kaohsiung Arena", "巨蛋"], ["R13", "Aozihdi", "凹子底"], ["R12", "Houyi", "後驛"], ["R11", "Kaohsiung Main Station", "高雄車站"], ["R10", "Formosa Boulevard", "美麗島"], ["R9", "Central Park", "中央公園"], ["R8", "Sanduo Shopping District", "三多商圈"], ["R7", "Shihjia", "獅甲"], ["R6", "Kaisyuan", "凱旋"], ["R5", "Cianjhen Senior High", "前鎮高中"], ["R4A", "Caoya", "草衙"], ["R4", "Kaohsiung Airport", "高雄國際機場"], ["R3", "Siaogang", "小港"]], "orange": [["O1", "Hamasen", "哈瑪星"], ["O2", "Yanchengpu", "鹽埕埔"], ["O4", "Cianjin", "前金"], ["O5", "Formosa Boulevard", "美麗島"], ["O6", "Sinyi Elementary", "信義國小"], ["O7", "Cultural Center", "文化中心"], ["O8", "Wukuaicuo", "五塊厝"], ["O9", "Lingya Sports Park", "苓雅運動園區"], ["O10", "Weiwuying", "衛武營"], ["O11", "Fongshan West", "鳳山西站"], ["O12", "Fongshan", "鳳山"], ["O13", "Dadong", "大東"], ["O14", "Fongshan Junior High", "鳳山國中"], ["OT1", "Daliao", "大寮"]], "lrt": [["C1", "Lizihnei", "籬仔內"], ["C2", "Kaisyuan Rueitian", "凱旋瑞田"], ["C3", "Cianjhen Star", "前鎮之星"], ["C4", "Kaisyuan Jhonghua", "凱旋中華"], ["C5", "Dream Mall", "夢時代"], ["C6", "Commerce & Trade Park", "經貿園區"], ["C7", "Software Tech Park", "軟體園區"], ["C8", "Exhibition Center", "高雄展覽館"], ["C9", "Cruise Terminal", "旅運中心"], ["C10", "Glory Pier", "光榮碼頭"], ["C11", "Love Pier", "真愛碼頭"], ["C12", "Dayi Pier-2", "駁二大義"], ["C13", "Penglai Pier-2", "駁二蓬萊"], ["C14", "Hamasen", "哈瑪星"], ["C15", "Shoushan Park", "壽山公園"], ["C16", "Wenwu Temple", "文武聖殿"], ["C17", "Gushan District Office", "鼓山區公所"], ["C18", "Gushan", "鼓山"], ["C19", "Makadao", "馬卡道"], ["C20", "TRA Museum of Fine Arts", "臺鐵美術館"], ["C21A", "Neiwei Arts Center", "內惟藝術中心"], ["C21", "Museum of Fine Arts", "美術館"], ["C22", "United Hospital", "聯合醫院"], ["C23", "Longhua Elementary", "龍華國小"], ["C24", "Heart of Love River", "愛河之心"], ["C25", "Sinshang Elementary", "新上國小"], ["C26", "Dashun Minzu", "大順民族"], ["C27", "Wanzihnei", "灣仔內"], ["C28", "Industrial High School", "高雄高工"], ["C29", "Shu-Te Commercial School", "樹德家商"], ["C30", "Science & Tech Museum", "科工館"], ["C31", "St. Joseph Hospital", "聖功醫院"], ["C32", "Kaisyuan Park", "凱旋公園"], ["C33", "Dept. of Health", "衛生局"], ["C34", "Wucyuan Elementary", "五權國小"], ["C35", "Kaisyuan Wuchang", "凱旋武昌"], ["C36", "Kaisyuan Ersheng", "凱旋二聖"], ["C37", "LRT Depot", "輕軌機廠"]], "tra": [["T-ZY", "Zuoying (TRA)", "左營"], ["T-NW", "Neiwei", "內惟"], ["T-MF", "Museum of Fine Arts", "美術館"], ["T-GS", "Gushan", "鼓山"], ["T-SK", "Sankuaicuo", "三塊厝"], ["T-KH", "Kaohsiung", "高雄"], ["T-MZ", "Minzu", "民族"], ["T-ST", "Science & Tech Museum", "科工館"], ["T-ZYI", "Zhengyi", "正義"], ["T-FS", "Fengshan", "鳳山"]]};
 const NS='http://www.w3.org/2000/svg';
 const colors={red:'#fd6578',orange:'#ffa947',lrt:'#4acb96',tra:'#80b9f8'};
@@ -43,22 +43,46 @@ const stations=new Map(),edges=new Map(),seq={};
 const make=(tag,attrs={},parent)=>{const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(parent)parent.appendChild(e);return e};
 const lerp=(a,b,t)=>a+(b-a)*t;
 function interp(idx,anchors){let keys=Object.keys(anchors).map(Number).sort((a,b)=>a-b);for(let i=0;i<keys.length-1;i++){if(idx>=keys[i]&&idx<=keys[i+1])return lerp(anchors[keys[i]],anchors[keys[i+1]],(idx-keys[i])/(keys[i+1]-keys[i]))}return anchors[keys[0]]}
-const ry={0:64,2:112,10:245,13:340,15:465,16:525,20:865,24:1065};
-const ox={0:185,1:255,2:360,3:520,4:560,6:690,8:810,13:1030};
-const ang={0:71,2:90,13:187,23:270,31:350,36:413,37:430};
-DATA.red.forEach(([id,en,zh],i)=>stations.set(id,{id,en,zh,line:'red',x:520,y:interp(i,ry)}));
-DATA.orange.forEach(([id,en,zh],i)=>stations.set(id,{id,en,zh,line:'orange',x:interp(i,ox),y:525}));
-DATA.lrt.forEach(([id,en,zh],i)=>{let a=interp(i,ang)*Math.PI/180;stations.set(id,{id,en,zh,line:'lrt',x:520+335*Math.cos(a),y:610+270*Math.sin(a)})});
-const txy=[[520,245],[415,296],[363,365],[313,430],[397,478],[520,465],[655,530],[742,588],[807,648],[890,708]];
+// v0.9: diagram geometry uses hand-tuned real-world relative neighborhoods.
+// It is NOT to scale. Adjacent stations along one line remain evenly legible.
+// MRT R8 and LRT C8 are close, but do require a street-level walk.
+const ry={0:28,2:90,6:172,10:260,13:328,15:465,16:540,17:625,18:718,19:815,20:910,21:974,24:1102};
+const ox={0:195,1:315,2:490,3:625,4:695,6:835,8:943,13:1090};
+DATA.red.forEach(([id,en,zh],i)=>stations.set(id,{id,en,zh,line:'red',x:625,y:interp(i,ry)}));
+DATA.orange.forEach(([id,en,zh],i)=>stations.set(id,{id,en,zh,line:'orange',x:interp(i,ox),y:540}));
+// Clockwise LRT sequence starting with C1 at the southern edge, through the
+// waterfront (C8), Hamasen (C14), arts district (C20), and eastern arc.
+const lrtAnchors={
+  0:[650,975],1:[652,947],2:[625,912],3:[562,912],4:[506,894],
+  5:[505,836],6:[508,772],7:[505,705],8:[477,655],9:[446,624],
+  10:[398,600],11:[326,565],12:[264,554],13:[195,550],
+  14:[198,502],15:[208,467],16:[223,429],17:[244,397],
+  18:[282,364],19:[330,330],20:[384,306],21:[428,292],
+  22:[490,289],23:[549,300],24:[625,328],25:[702,329],
+  26:[760,351],27:[814,391],28:[854,442],29:[890,486],
+  30:[908,547],31:[909,609],32:[897,679],33:[868,741],
+  34:[823,799],35:[767,856],36:[710,917],37:[675,952]
+};
+DATA.lrt.forEach(([id,en,zh],i)=>{
+ const point=lrtAnchors[i];stations.set(id,{id,en,zh,line:'lrt',x:point[0],y:point[1]});
+});
+// TRA alignment is schematic; rail transport stops are not all interchange nodes.
+const txy=[[580,260],[450,276],[330,330],[244,397],[432,434],[625,465],[736,494],[836,535],[922,592],[1014,659]];
 DATA.tra.forEach(([id,en,zh],i)=>stations.set(id,{id,en,zh,line:'tra',x:txy[i][0],y:txy[i][1]}));
 const allseq=['red','orange','lrt','tra'];
 function link(a,b,kind='ride'){if(!stations.has(a)||!stations.has(b))throw Error(a+' '+b);for(const [s,t] of [[a,b],[b,a]]){if(!edges.has(s))edges.set(s,[]);edges.get(s).push({to:t,kind})}}
 for(const name of allseq){seq[name]=DATA[name].map(x=>x[0]);for(let i=1;i<seq[name].length;i++)link(seq[name][i-1],seq[name][i]);}
 link('C37','C1');
 // Interchange links, not necessarily paid-area transfers. Shown as walks.
-const transfers=[['R10','O5'],['R6','C3'],['R13','C24'],['O1','C14'],['O8','C32'],['O7','C32'],['R11','T-KH'],['R16','T-ZY'],['R23','T-ZY'],['C18','T-GS'],['C20','T-MF'],['C30','T-ST'],['O12','T-FS']];
-// R23 and TRA Zuoying are NOT the same: remove, and include the actual Ciaotou TRA station only in a later full model.
-transfers.splice(transfers.findIndex(x=>x[0]==='R23'),1);
+// Only the strongest verified transfer links are included in this prototype.
+// Some are outside the fare gates; R8 ↔ C8 specifically requires street walking.
+// Removed earlier fictitious links O7/O8 ↔ C32 and R16 ↔ TRA Zuoying:
+// TRA Zuoying is distinct from the TRA Xinzuoying interchange at R16.
+const transfers=[
+ ['R10','O5'],['R6','C3'],['R13','C24'],['O1','C14'],
+ ['R11','T-KH'],['C18','T-GS'],['C20','T-MF'],['C30','T-ST'],
+ ['R8','C8']
+];
 transfers.forEach(([a,b])=>link(a,b,'walk'));
 const lines=document.getElementById('lines'),walks=document.getElementById('walks'),routes=document.getElementById('routes'),dots=document.getElementById('stations');
 const path=(ids)=>ids.map((id,i)=>{const s=stations.get(id);return (i?'L':'M')+s.x.toFixed(1)+' '+s.y.toFixed(1)}).join(' ');
@@ -82,6 +106,13 @@ for(const s of stations.values()){
   else if(s.line==='lrt'){dx=s.x>530? 12:-12;dy=idx%2? -8:13}
   else {dx=idx%2?12:-12;dy=idx%2?-10:14}
  }
+ // Offset captions at major intersections to reduce crowding.
+ if(s.id==='C8'){dx=-14;dy=19}
+ if(s.id==='R8'){dx=14;dy=-12}
+ if(s.id==='C24'){dx=16;dy=-10}
+ if(s.id==='R13'){dx=14;dy=20}
+ if(s.id==='T-KH'){dx=-14;dy=-16}
+ if(s.id==='C3'){dx=-13;dy=20}
  let anchor=dx<0?'end':'start';
  if(s.line==='orange')anchor='middle';
  const label=make('text',{class:'station-label',x:s.x+dx,y:s.y+dy,'text-anchor':anchor},g);
@@ -190,7 +221,7 @@ function renderRouteOptions(){routeOptions.replaceChildren();routeOptions.hidden
   const small=document.createElement('small');small.textContent=zh+' · '+r.walks+' walk link'+(r.walks===1?'':'s');
   b.append(head,small);b.addEventListener('click',()=>{selectedRoute=i;renderRouteOptions();drawSelectedRoute()});routeOptions.append(b);
  });
- const note=document.createElement('p');note.className='route-choice-info';note.textContent='Schematic estimates only · 非即時路線';routeOptions.append(note);
+ const note=document.createElement('p');note.className='route-choice-info';note.textContent='Schematic paths · not to scale · 非即時路線';routeOptions.append(note);
 }
 function drawSelectedRoute(){
  routes.replaceChildren();refreshSelected();const res=candidates[selectedRoute];if(!res)return;
@@ -288,22 +319,46 @@ function gestureRelease(id){
  if(pointers.size===0){gesture=null;setTimeout(()=>{suppressStationTap=false},180)}
  else initializeGesture();
 }
-// Pointer Events work on modern iOS and Android. For older Safari versions,
-// Touch Events provide a fallback without triggering page zoom or scrolling.
-if(window.PointerEvent){
- wrap.addEventListener('pointerdown',e=>{
-  if(e.target.closest('button'))return;
-  if(e.pointerType==='mouse'&&e.button!==0)return;
-  gestureDown(e.pointerId,e.clientX,e.clientY);
-  try{wrap.setPointerCapture(e.pointerId)}catch{}
- });
- wrap.addEventListener('pointermove',e=>gestureMove(e.pointerId,e.clientX,e.clientY));
- for(const type of ['pointerup','pointercancel','lostpointercapture'])wrap.addEventListener(type,e=>gestureRelease(e.pointerId));
-}else{
- wrap.addEventListener('touchstart',e=>{if(e.target.closest('button'))return;e.preventDefault();for(const t of e.changedTouches)gestureDown(t.identifier,t.clientX,t.clientY)},{passive:false});
- wrap.addEventListener('touchmove',e=>{e.preventDefault();for(const t of e.changedTouches)gestureMove(t.identifier,t.clientX,t.clientY)},{passive:false});
- for(const type of ['touchend','touchcancel'])wrap.addEventListener(type,e=>{for(const t of e.changedTouches)gestureRelease(t.identifier)},{passive:false});
+// Mobile Safari may zoom the whole page even when a map uses Pointer Events.
+// Own touch interaction within the SVG, cancel the browser's native gestures,
+// and use Pointer Events for mouse / pen only (avoids double-processing touch).
+// Keep native page gestures OUTSIDE the map for accessibility.
+let touchTapCandidate=null;
+svg.addEventListener('touchstart',e=>{
+ if(e.cancelable)e.preventDefault();
+ if(e.touches.length===1){
+  const t=e.touches[0];
+  touchTapCandidate={x:t.clientX,y:t.clientY,id:e.target.closest('.station')?.dataset.id||null};
+ }else touchTapCandidate=null;
+ for(const t of e.changedTouches)gestureDown('touch'+t.identifier,t.clientX,t.clientY);
+},{passive:false});
+svg.addEventListener('touchmove',e=>{
+ if(e.cancelable)e.preventDefault();
+ if(touchTapCandidate){const t=e.touches[0];if(!t||Math.hypot(t.clientX-touchTapCandidate.x,t.clientY-touchTapCandidate.y)>9)touchTapCandidate=null;}
+ for(const t of e.changedTouches)gestureMove('touch'+t.identifier,t.clientX,t.clientY);
+},{passive:false});
+function endTouches(e){
+ if(e.cancelable)e.preventDefault();
+ const tapped=e.type==='touchend'&&touchTapCandidate&&e.touches.length===0&&!suppressStationTap;
+ const id=tapped?touchTapCandidate.id:null;
+ for(const t of e.changedTouches)gestureRelease('touch'+t.identifier);
+ touchTapCandidate=null;
+ if(id) picked(id);
 }
+svg.addEventListener('touchend',endTouches,{passive:false});
+svg.addEventListener('touchcancel',endTouches,{passive:false});
+// iOS-specific gesture events: suppress viewport magnification on the map only.
+for(const eventName of ['gesturestart','gesturechange','gestureend']){
+ wrap.addEventListener(eventName,e=>{if(e.cancelable)e.preventDefault()},{passive:false});
+}
+wrap.addEventListener('pointerdown',e=>{
+ if(e.pointerType==='touch')return;
+ if(e.pointerType==='mouse'&&e.button!==0)return;
+ gestureDown(e.pointerId,e.clientX,e.clientY);
+ try{wrap.setPointerCapture(e.pointerId)}catch{}
+});
+wrap.addEventListener('pointermove',e=>{if(e.pointerType!=='touch')gestureMove(e.pointerId,e.clientX,e.clientY)});
+for(const type of ['pointerup','pointercancel','lostpointercapture'])wrap.addEventListener(type,e=>{if(e.pointerType!=='touch')gestureRelease(e.pointerId)});
 wrap.addEventListener('click',e=>{if(suppressStationTap){e.preventDefault();e.stopPropagation()}},true);
 wrap.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.deltaY<0?.86:1.16,e.clientX,e.clientY)},{passive:false});
 let resizeTimer;
