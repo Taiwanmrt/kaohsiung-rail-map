@@ -76,7 +76,7 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 .city-note{color:var(--sub);font-size:11px;line-height:1.4;margin:0;flex:1;min-width:180px}
 .city-fallback{font-size:12px;padding:10px 12px;background:var(--bg);color:var(--sub)}
 @media(max-width:800px){.city-view{height:min(112vw,580px);min-height:350px}.mapPanel .toolbar{top:62px}}
-</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 2.3</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v2.3</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. No schedules, fares, or travel times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden><div class="city-header"><p class="city-note">Geographical map · 地理位置圖. Stations and rail routes are not yet plotted here. Your Rail Map selections are preserved.</p><a href="https://www.openstreetmap.org/search?query=Kaohsiung" target="_blank" rel="noopener noreferrer" id="osmSearchLink">Search places ↗ / 搜尋地點</a></div><div id="cityFrameSlot" style="height:calc(100% - 83px);min-height:280px"></div><div class="city-fallback">Map requires internet · 地圖需要網路 · © OpenStreetMap contributors</div></div></section></main><footer>Station order and official interchange guidance: <a href="https://www.krtc.com.tw/eng/Guide/guide_map">Kaohsiung Rapid Transit Corporation</a>. Walking link O7/O8–C32: <a href="https://www.krtc.com.tw/Service/faq_more?id=dadec737e1d14ac6931194ab8a2d755d">KRTC FAQ (~500 m)</a>. TRA geometry is approximate. Urban TRA list: <a href="https://www.rb.gov.tw/en/main/en_Railway_Construction/20250505_171711/20251121_103828/20250507_100102/20250507_100102-1/">Taiwan Railway Bureau</a>. First prototype by ChatGPT; not affiliated with a transit operator.</footer><script>
+</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 2.4</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v2.4</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. No schedules, fares, or travel times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden><div class="city-header"><p class="city-note">Geographical map · 地理位置圖. Stations and rail routes are not yet plotted here. Your Rail Map selections are preserved.</p><a href="https://www.openstreetmap.org/search?query=Kaohsiung" target="_blank" rel="noopener noreferrer" id="osmSearchLink">Search places ↗ / 搜尋地點</a></div><div id="cityFrameSlot" style="height:calc(100% - 83px);min-height:280px"></div><div class="city-fallback">Map requires internet · 地圖需要網路 · © OpenStreetMap contributors</div></div></section></main><footer>Station order and official interchange guidance: <a href="https://www.krtc.com.tw/eng/Guide/guide_map">Kaohsiung Rapid Transit Corporation</a>. Walking link O7/O8–C32: <a href="https://www.krtc.com.tw/Service/faq_more?id=dadec737e1d14ac6931194ab8a2d755d">KRTC FAQ (~500 m)</a>. TRA geometry is approximate. Urban TRA list: <a href="https://www.rb.gov.tw/en/main/en_Railway_Construction/20250505_171711/20251121_103828/20250507_100102/20250507_100102-1/">Taiwan Railway Bureau</a>. First prototype by ChatGPT; not affiliated with a transit operator.</footer><script>
 const DATA={"red": [["RK1", "Gangshan Station", "岡山車站"], ["R24", "Kaohsiung Medical University Gangshan Hospital", "岡山高醫"], ["R23", "Ciaotou Station", "橋頭火車站"], ["R22A", "Ciaotou Sugar Refinery", "橋頭糖廠"], ["R22", "Cingpu", "青埔"], ["R21", "Metropolitan Park", "都會公園"], ["R20", "Houjing", "後勁"], ["R19", "Nanzih Technology Industrial Park", "楠梓科技園區"], ["R18", "Oil Refinery Elementary School", "油廠國小"], ["R17", "World Games", "世運"], ["R16", "Zuoying", "左營"], ["R15", "Ecological District", "生態園區"], ["R14", "Kaohsiung Arena", "巨蛋"], ["R13", "Aozihdi", "凹子底"], ["R12", "Houyi", "後驛"], ["R11", "Kaohsiung Main Station", "高雄車站"], ["R10", "Formosa Boulevard", "美麗島"], ["R9", "Central Park", "中央公園"], ["R8", "Sanduo Shopping District", "三多商圈"], ["R7", "Shihjia", "獅甲"], ["R6", "Kaisyuan", "凱旋"], ["R5", "Cianjhen Senior High School", "前鎮高中"], ["R4A", "Caoya", "草衙"], ["R4", "Kaohsiung International Airport", "高雄國際機場"], ["R3", "Siaogang", "小港"]], "orange": [["O1", "Hamasen", "哈瑪星"], ["O2", "Yanchengpu", "鹽埕埔"], ["O4", "Cianjin", "前金"], ["O5", "Formosa Boulevard", "美麗島"], ["O6", "Sinyi Elementary", "信義國小"], ["O7", "Cultural Center", "文化中心"], ["O8", "Wukuaicuo", "五塊厝"], ["O9", "Lingya Sports Park", "苓雅運動園區"], ["O10", "Weiwuying", "衛武營"], ["O11", "Fongshan West (Kaohsiung City Council)", "鳳山西站"], ["O12", "Fongshan", "鳳山"], ["O13", "Dadong", "大東"], ["O14", "Fongshan Junior High", "鳳山國中"], ["OT1", "Daliao", "大寮"]], "lrt": [["C1", "Lizihnei", "籬仔內"], ["C2", "Kaisyuan Rueitian", "凱旋瑞田"], ["C3", "Cianjhen Star", "前鎮之星"], ["C4", "Kaisyuan Jhonghua", "凱旋中華"], ["C5", "Dream Mall", "夢時代"], ["C6", "Commerce and Trade Park", "經貿園區"], ["C7", "Software Technology Park", "軟體園區"], ["C8", "Kaohsiung Exhibition Center", "高雄展覽館"], ["C9", "Cruise Terminal", "旅運中心"], ["C10", "Glory Pier", "光榮碼頭"], ["C11", "Love Pier", "真愛碼頭"], ["C12", "Dayi Pier-2", "駁二大義"], ["C13", "Penglai Pier-2", "駁二蓬萊"], ["C14", "Hamasen", "哈瑪星"], ["C15", "Shoushan Park", "壽山公園"], ["C16", "Wenwu Temple", "文武聖殿"], ["C17", "Gushan District Office", "鼓山區公所"], ["C18", "Gushan", "鼓山"], ["C19", "Makadao", "馬卡道"], ["C20", "TRA Museum of Fine Arts", "臺鐵美術館"], ["C21A", "Neiwei Arts Center", "內惟藝術中心"], ["C21", "Kaohsiung Museum of Fine Arts", "美術館"], ["C22", "Kaohsiung Municipal United Hospital", "聯合醫院"], ["C23", "Longhua Elementary", "龍華國小"], ["C24", "Heart of Love River", "愛河之心"], ["C25", "Sinshang Elementary", "新上國小"], ["C26", "Dashun Minzu", "大順民族"], ["C27", "Wanzihnei (Dashun Dingshan)", "灣仔內"], ["C28", "Kaohsiung Industrial High School", "高雄高工"], ["C29", "Shu-Te Home-Economics & Commercial High School", "樹德家商"], ["C30", "Science & Tech Museum", "科工館"], ["C31", "St. Joseph Hospital", "聖功醫院"], ["C32", "Kaisyuan Park", "凱旋公園"], ["C33", "Department of Health", "衛生局"], ["C34", "Wucyuan Elementary", "五權國小"], ["C35", "Kaisyuan Wuchang", "凱旋武昌"], ["C36", "Kaisyuan Ersheng", "凱旋二聖"], ["C37", "LRT Depot", "輕軌機廠"]], "tra": [["T-XZY", "Xinzuoying (TRA)", "新左營"], ["T-ZY", "Zuoying (TRA)", "左營"], ["T-NW", "Neiwei", "內惟"], ["T-MF", "Museum of Fine Arts (TRA)", "美術館"], ["T-GS", "Gushan", "鼓山"], ["T-SK", "Sankuaicuo", "三塊厝"], ["T-KH", "Kaohsiung", "高雄"], ["T-MZ", "Minzu", "民族"], ["T-ST", "Science & Tech Museum", "科工館"], ["T-ZYI", "Zhengyi", "正義"], ["T-FS", "Fengshan", "鳳山"]]};
 const NS='http://www.w3.org/2000/svg';
 const colors={red:'#fd6578',orange:'#ffa947',lrt:'#4acb96',tra:'#80b9f8'};
@@ -217,7 +217,7 @@ window.visualViewport?.addEventListener('scroll',alignOpenSuggestions);
 
 const routeOptions=document.getElementById('routeOptions');
 const detailsToggle=document.getElementById('detailsToggle'),detailsContent=document.getElementById('detailsContent');
-detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v2.3</span>'});
+detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v2.4</span>'});
 function options(el){const empty=document.createElement('option');empty.value='';empty.textContent='Select station / 選擇車站';el.append(empty);for(const name of allseq){const group=document.createElement('optgroup');group.label={red:'MRT Red',orange:'MRT Orange',lrt:'LRT Circular',tra:'TRA Urban'}[name];DATA[name].forEach(([id,en,zh])=>{let o=document.createElement('option');o.value=id;o.textContent=id+' · '+en+' / '+zh;group.appendChild(o)});el.append(group)}}
 options(from);options(to);
 let next='from';
@@ -462,83 +462,94 @@ function calculateFit(){
  if(w/h<ratio)w=h*ratio;else h=w/ratio;
  return {x:cx-w/2,y:cy-h/2,w,h};
 }
-// Stable station captions (v2.3): pan never recalculates the label layout.
-// A new collision-free layout is chosen only when crossing a zoom detail level
-// or when the selected stations change. This prevents captions from jumping
-// between sides of a station while the user drags the map.
+// v2.4: station captions are assigned fixed sides and offsets ONCE.
+// Pan and pinch never solve collisions or change placement. Only fixed
+// zoom-detail tiers control which prepared labels are visible.
 const stationLabels=[...document.querySelectorAll('.station-label')];
 const majorLabelIds=new Set(['R8','R11','R13','R16','O5','O1','C8','C14','C20','C24','T-NW','T-XZY']);
-let labelLayoutKey='';
-let stableLabelPositions=new Map();
-function zoomLabelLevel(zoom){
- // Hysteresis is handled implicitly by broad detail bands: no relayout
- // at all while the user remains in the current band.
- return zoom<1.7?0:zoom<3.0?1:2;
+const fixedLabelPositions=new Map();
+let fixedLabelsReady=false;
+let currentLabelLevel=0;
+function layoutMapLabelsOnce(){
+ if(fixedLabelsReady)return;
+ fixedLabelsReady=true;
+ const basePixelsPerUnit=Math.max(.001,wrap.clientWidth/baseView.w);
+ const overlaps=(a,b,pad=4)=>a.left<b.right+pad&&a.right>b.left-pad&&a.top<b.bottom+pad&&a.bottom>b.top-pad;
+ const items=stationLabels.map(el=>({el,id:el.parentNode.dataset.id,
+   x:Number(el.dataset.x),y:Number(el.dataset.y),line:el.dataset.line,
+   dx:Number(el.dataset.dx),dy:Number(el.dataset.dy),
+   major:el.dataset.major==='1'}));
+ items.sort((a,b)=>Number(majorLabelIds.has(b.id))-Number(majorLabelIds.has(a.id))||
+   Number(b.major)-Number(a.major)||a.id.localeCompare(b.id));
+ // Compute arrangements in map coordinates, not current viewport coordinates.
+ // The occupied lists are stable even when the user drags the diagram.
+ const reservedAtFit=[];
+ const reservedAtDetail=[];
+ function rectFor(item,offset,anchor,pxPerUnit,size){
+   const [dx,dy]=offset;
+   const sx=item.x*pxPerUnit+dx;
+   const sy=item.y*pxPerUnit+dy;
+   const w=(item.el.textContent.length*size*.56)+3;
+   const left=anchor==='middle'?sx-w/2:anchor==='end'?sx-w:sx;
+   return {left,right:left+w,top:sy-size*.9,bottom:sy+size*.35};
+ }
+ for(const item of items){
+   const major=item.major||majorLabelIds.has(item.id);
+   const size=major?11:10.5;
+   const side=item.dx<0?-1:1;
+   const vert=item.dy<0?-1:1;
+   const options=item.line==='orange' ? [
+     [0,-15,'middle'],[0,20,'middle'],[0,-34,'middle'],[0,37,'middle'],
+     [13,-13,'start'],[-13,20,'end'],[13,31,'start'],[-13,-30,'end']
+   ] : [
+     [side*12,vert*4,side>0?'start':'end'],
+     [-side*12,vert*4,side>0?'end':'start'],
+     [side*12,-vert*17,side>0?'start':'end'],
+     [-side*12,-vert*17,side>0?'end':'start'],
+     [0,-19,'middle'],[0,25,'middle'],
+     [14,23,'start'],[-14,-22,'end']
+   ];
+   // Labels available at initial zoom are established first and never moved.
+   const initial=major;
+   const scale=basePixelsPerUnit*(initial?1:3.2);
+   const occupied=initial?reservedAtFit:reservedAtDetail;
+   let chosen=null;
+   for(const [dx,dy,anchor] of options){
+     const r=rectFor(item,[dx,dy],anchor,scale,size);
+     if(occupied.some(q=>overlaps(r,q)))continue;
+     chosen={dx,dy,anchor,size,x:item.x,y:item.y,initial};
+     occupied.push(r);
+     break;
+   }
+   if(!chosen){
+     // Keep crucial station captions with their first fixed side.
+     if(!initial)continue;
+     const [dx,dy,anchor]=options[0];
+     chosen={dx,dy,anchor,size,x:item.x,y:item.y,initial};
+   }
+   fixedLabelPositions.set(item.el,chosen);
+   if(initial){
+     // Reserve these labels in the detailed view without changing their sides.
+     const r=rectFor(item,[chosen.dx,chosen.dy],chosen.anchor,basePixelsPerUnit*3.2,size);
+     reservedAtDetail.push(r);
+   }
+ }
 }
 function updateMapLabels(){
+ layoutMapLabelsOnce();
  const zoom=baseView.w/view.w;
- const level=zoomLabelLevel(zoom);
- const selectionKey=(from.value||'')+'|'+(to.value||'');
- const key=level+'|'+selectionKey;
+ // Hysteresis prevents flashing around zoom thresholds.
+ if(currentLabelLevel===0&&zoom>2.15)currentLabelLevel=1;
+ else if(currentLabelLevel===1&&zoom<1.85)currentLabelLevel=0;
  const ctm=svg.getScreenCTM();
  const screenScale=ctm?Math.max(.001,Math.abs(ctm.a)):Math.max(.001,svg.clientWidth/view.w);
  const mapPerPx=1/screenScale;
- const shouldReflow=key!==labelLayoutKey;
- svg.classList.toggle('show-all-labels',level>0);
- if(shouldReflow){
-   labelLayoutKey=key;
-   stableLabelPositions=new Map();
-   // Avoid viewport-boundary tests: they would make labels appear/disappear
-   // just because the map moved by a few pixels.
-   const occupied=[];
-   const overlaps=(a,b,pad=5)=>a.left<b.right+pad&&a.right>b.left-pad&&a.top<b.bottom+pad&&a.bottom>b.top-pad;
-   const items=stationLabels.map(el=>({el,id:el.parentNode.dataset.id,
-     x:Number(el.dataset.x),y:Number(el.dataset.y),line:el.dataset.line,
-     dx:Number(el.dataset.dx),dy:Number(el.dataset.dy),
-     major:el.dataset.major==='1',active:el.parentNode.classList.contains('active')}));
-   for(const item of items)item.el.style.display='none';
-   items.sort((a,b)=>Number(b.active)-Number(a.active)||
-     Number(majorLabelIds.has(b.id))-Number(majorLabelIds.has(a.id))||
-     Number(b.major)-Number(a.major));
-   for(const item of items){
-     const {el,x,y,line,major,active}=item;
-     if(level===0&&!major&&!active)continue;
-     // At the middle level show uncrowded captions; after further zoom
-     // more labels can fit. Their chosen side stays fixed during panning.
-     const sz=active?12:major?11:10.5;
-     const side=item.dx<0?-1:1, vertical=item.dy<0?-1:1;
-     const choices=line==='orange' ? [
-       [0,-13,'middle'],[0,19,'middle'],[0,-30,'middle'],[0,35,'middle'],
-       [12,-13,'start'],[-12,19,'end'],[12,30,'start'],[-12,-30,'end']
-     ] : [
-       [side*11,vertical*3,side>0?'start':'end'],
-       [-side*11,vertical*3,side>0?'end':'start'],
-       [side*11,-vertical*15,side>0?'start':'end'],
-       [-side*11,-vertical*15,side>0?'end':'start'],
-       [0,-17,'middle'],[0,24,'middle'],
-       [13,22,'start'],[-13,-20,'end']
-     ];
-     el.style.fontSize=(sz*mapPerPx)+'px';
-     for(const [dx,dy,anchor] of choices){
-       el.setAttribute('x',x+dx*mapPerPx);
-       el.setAttribute('y',y+dy*mapPerPx);
-       el.setAttribute('text-anchor',anchor);
-       el.style.display='block';
-       const r=el.getBoundingClientRect();
-       if(!(r.width>0&&r.height>0)||occupied.some(o=>overlaps(o,r))){el.style.display='none';continue}
-       stableLabelPositions.set(el,{dx,dy,anchor,sz,x,y});
-       occupied.push(r);
-       break;
-     }
-   }
- }
- // On continuous zoom preserve label identities and sides. Only maintain
- // readable screen-pixel font sizes/offsets; on pan these values are unchanged.
  for(const el of stationLabels){
-   const pos=stableLabelPositions.get(el);
+   const pos=fixedLabelPositions.get(el);
    if(!pos){el.style.display='none';continue}
-   el.style.display='block';
-   el.style.fontSize=(pos.sz*mapPerPx)+'px';
+   const selected=el.parentNode.classList.contains('active');
+   el.style.display=(pos.initial||currentLabelLevel>0||selected)?'block':'none';
+   el.style.fontSize=pos.size*mapPerPx+'px';
    el.setAttribute('x',pos.x+pos.dx*mapPerPx);
    el.setAttribute('y',pos.y+pos.dy*mapPerPx);
    el.setAttribute('text-anchor',pos.anchor);
