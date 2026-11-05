@@ -38,8 +38,8 @@ header,footer,.tip{display:none}
 /* Outside the map, normal one-finger vertical scrolling remains enabled,
    but the browser must not pinch-zoom the whole application UI. */
 html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{touch-action:pan-y} .mapwrap,.mapwrap *{touch-action:none!important}
-</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 1.2</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search station / 搜尋車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search station / 搜尋車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾</button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections are approximate, including R8–C8. No schedules, fares, or travel times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" width="1100" height="1140"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div></section></main><footer>Station order: <a href="https://www.krtc.com.tw/eng/Guide/guide_map">Kaohsiung Rapid Transit Corporation</a>. TRA locations are approximate. Urban TRA list: <a href="https://www.rb.gov.tw/en/main/en_Railway_Construction/20250505_171711/20251121_103828/20250507_100102/20250507_100102-1/">Taiwan Railway Bureau</a>. First prototype by ChatGPT; not affiliated with a transit operator.</footer><script>
-const DATA={"red": [["RK1", "Gangshan Station", "岡山車站"], ["R24", "Gangshan Medical University", "岡山高醫"], ["R23", "Ciaotou Station", "橋頭火車站"], ["R22A", "Ciaotou Sugar Refinery", "橋頭糖廠"], ["R22", "Cingpu", "青埔"], ["R21", "Metropolitan Park", "都會公園"], ["R20", "Houjing", "後勁"], ["R19", "Nanzih Technology Park", "楠梓科技園區"], ["R18", "Oil Refinery Elementary", "油廠國小"], ["R17", "World Games", "世運"], ["R16", "Zuoying", "左營"], ["R15", "Ecological District", "生態園區"], ["R14", "Kaohsiung Arena", "巨蛋"], ["R13", "Aozihdi", "凹子底"], ["R12", "Houyi", "後驛"], ["R11", "Kaohsiung Main Station", "高雄車站"], ["R10", "Formosa Boulevard", "美麗島"], ["R9", "Central Park", "中央公園"], ["R8", "Sanduo Shopping District", "三多商圈"], ["R7", "Shihjia", "獅甲"], ["R6", "Kaisyuan", "凱旋"], ["R5", "Cianjhen Senior High", "前鎮高中"], ["R4A", "Caoya", "草衙"], ["R4", "Kaohsiung Airport", "高雄國際機場"], ["R3", "Siaogang", "小港"]], "orange": [["O1", "Hamasen", "哈瑪星"], ["O2", "Yanchengpu", "鹽埕埔"], ["O4", "Cianjin", "前金"], ["O5", "Formosa Boulevard", "美麗島"], ["O6", "Sinyi Elementary", "信義國小"], ["O7", "Cultural Center", "文化中心"], ["O8", "Wukuaicuo", "五塊厝"], ["O9", "Lingya Sports Park", "苓雅運動園區"], ["O10", "Weiwuying", "衛武營"], ["O11", "Fongshan West", "鳳山西站"], ["O12", "Fongshan", "鳳山"], ["O13", "Dadong", "大東"], ["O14", "Fongshan Junior High", "鳳山國中"], ["OT1", "Daliao", "大寮"]], "lrt": [["C1", "Lizihnei", "籬仔內"], ["C2", "Kaisyuan Rueitian", "凱旋瑞田"], ["C3", "Cianjhen Star", "前鎮之星"], ["C4", "Kaisyuan Jhonghua", "凱旋中華"], ["C5", "Dream Mall", "夢時代"], ["C6", "Commerce & Trade Park", "經貿園區"], ["C7", "Software Tech Park", "軟體園區"], ["C8", "Exhibition Center", "高雄展覽館"], ["C9", "Cruise Terminal", "旅運中心"], ["C10", "Glory Pier", "光榮碼頭"], ["C11", "Love Pier", "真愛碼頭"], ["C12", "Dayi Pier-2", "駁二大義"], ["C13", "Penglai Pier-2", "駁二蓬萊"], ["C14", "Hamasen", "哈瑪星"], ["C15", "Shoushan Park", "壽山公園"], ["C16", "Wenwu Temple", "文武聖殿"], ["C17", "Gushan District Office", "鼓山區公所"], ["C18", "Gushan", "鼓山"], ["C19", "Makadao", "馬卡道"], ["C20", "TRA Museum of Fine Arts", "臺鐵美術館"], ["C21A", "Neiwei Arts Center", "內惟藝術中心"], ["C21", "Museum of Fine Arts", "美術館"], ["C22", "United Hospital", "聯合醫院"], ["C23", "Longhua Elementary", "龍華國小"], ["C24", "Heart of Love River", "愛河之心"], ["C25", "Sinshang Elementary", "新上國小"], ["C26", "Dashun Minzu", "大順民族"], ["C27", "Wanzihnei", "灣仔內"], ["C28", "Industrial High School", "高雄高工"], ["C29", "Shu-Te Commercial School", "樹德家商"], ["C30", "Science & Tech Museum", "科工館"], ["C31", "St. Joseph Hospital", "聖功醫院"], ["C32", "Kaisyuan Park", "凱旋公園"], ["C33", "Dept. of Health", "衛生局"], ["C34", "Wucyuan Elementary", "五權國小"], ["C35", "Kaisyuan Wuchang", "凱旋武昌"], ["C36", "Kaisyuan Ersheng", "凱旋二聖"], ["C37", "LRT Depot", "輕軌機廠"]], "tra": [["T-ZY", "Zuoying (TRA)", "左營"], ["T-NW", "Neiwei", "內惟"], ["T-MF", "Museum of Fine Arts", "美術館"], ["T-GS", "Gushan", "鼓山"], ["T-SK", "Sankuaicuo", "三塊厝"], ["T-KH", "Kaohsiung", "高雄"], ["T-MZ", "Minzu", "民族"], ["T-ST", "Science & Tech Museum", "科工館"], ["T-ZYI", "Zhengyi", "正義"], ["T-FS", "Fengshan", "鳳山"]]};
+</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 1.3</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search station / 搜尋車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search station / 搜尋車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾</button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections are approximate, including R8–C8. No schedules, fares, or travel times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" width="1100" height="1140"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div></section></main><footer>Station order: <a href="https://www.krtc.com.tw/eng/Guide/guide_map">Kaohsiung Rapid Transit Corporation</a>. TRA locations are approximate. Urban TRA list: <a href="https://www.rb.gov.tw/en/main/en_Railway_Construction/20250505_171711/20251121_103828/20250507_100102/20250507_100102-1/">Taiwan Railway Bureau</a>. First prototype by ChatGPT; not affiliated with a transit operator.</footer><script>
+const DATA={"red": [["RK1", "Gangshan Station", "岡山車站"], ["R24", "Gangshan Medical University", "岡山高醫"], ["R23", "Ciaotou Station", "橋頭火車站"], ["R22A", "Ciaotou Sugar Refinery", "橋頭糖廠"], ["R22", "Cingpu", "青埔"], ["R21", "Metropolitan Park", "都會公園"], ["R20", "Houjing", "後勁"], ["R19", "Nanzih Technology Park", "楠梓科技園區"], ["R18", "Oil Refinery Elementary", "油廠國小"], ["R17", "World Games", "世運"], ["R16", "Zuoying", "左營"], ["R15", "Ecological District", "生態園區"], ["R14", "Kaohsiung Arena", "巨蛋"], ["R13", "Aozihdi", "凹子底"], ["R12", "Houyi", "後驛"], ["R11", "Kaohsiung Main Station", "高雄車站"], ["R10", "Formosa Boulevard", "美麗島"], ["R9", "Central Park", "中央公園"], ["R8", "Sanduo Shopping District", "三多商圈"], ["R7", "Shihjia", "獅甲"], ["R6", "Kaisyuan", "凱旋"], ["R5", "Cianjhen Senior High", "前鎮高中"], ["R4A", "Caoya", "草衙"], ["R4", "Kaohsiung Airport", "高雄國際機場"], ["R3", "Siaogang", "小港"]], "orange": [["O1", "Hamasen", "哈瑪星"], ["O2", "Yanchengpu", "鹽埕埔"], ["O4", "Cianjin", "前金"], ["O5", "Formosa Boulevard", "美麗島"], ["O6", "Sinyi Elementary", "信義國小"], ["O7", "Cultural Center", "文化中心"], ["O8", "Wukuaicuo", "五塊厝"], ["O9", "Lingya Sports Park", "苓雅運動園區"], ["O10", "Weiwuying", "衛武營"], ["O11", "Fongshan West", "鳳山西站"], ["O12", "Fongshan", "鳳山"], ["O13", "Dadong", "大東"], ["O14", "Fongshan Junior High", "鳳山國中"], ["OT1", "Daliao", "大寮"]], "lrt": [["C1", "Lizihnei", "籬仔內"], ["C2", "Kaisyuan Rueitian", "凱旋瑞田"], ["C3", "Cianjhen Star", "前鎮之星"], ["C4", "Kaisyuan Jhonghua", "凱旋中華"], ["C5", "Dream Mall", "夢時代"], ["C6", "Commerce & Trade Park", "經貿園區"], ["C7", "Software Tech Park", "軟體園區"], ["C8", "Exhibition Center", "高雄展覽館"], ["C9", "Cruise Terminal", "旅運中心"], ["C10", "Glory Pier", "光榮碼頭"], ["C11", "Love Pier", "真愛碼頭"], ["C12", "Dayi Pier-2", "駁二大義"], ["C13", "Penglai Pier-2", "駁二蓬萊"], ["C14", "Hamasen", "哈瑪星"], ["C15", "Shoushan Park", "壽山公園"], ["C16", "Wenwu Temple", "文武聖殿"], ["C17", "Gushan District Office", "鼓山區公所"], ["C18", "Gushan", "鼓山"], ["C19", "Makadao", "馬卡道"], ["C20", "TRA Museum of Fine Arts", "臺鐵美術館"], ["C21A", "Neiwei Arts Center", "內惟藝術中心"], ["C21", "Museum of Fine Arts", "美術館"], ["C22", "United Hospital", "聯合醫院"], ["C23", "Longhua Elementary", "龍華國小"], ["C24", "Heart of Love River", "愛河之心"], ["C25", "Sinshang Elementary", "新上國小"], ["C26", "Dashun Minzu", "大順民族"], ["C27", "Wanzihnei", "灣仔內"], ["C28", "Industrial High School", "高雄高工"], ["C29", "Shu-Te Commercial School", "樹德家商"], ["C30", "Science & Tech Museum", "科工館"], ["C31", "St. Joseph Hospital", "聖功醫院"], ["C32", "Kaisyuan Park", "凱旋公園"], ["C33", "Dept. of Health", "衛生局"], ["C34", "Wucyuan Elementary", "五權國小"], ["C35", "Kaisyuan Wuchang", "凱旋武昌"], ["C36", "Kaisyuan Ersheng", "凱旋二聖"], ["C37", "LRT Depot", "輕軌機廠"]], "tra": [["T-XZY", "Xinzuoying (TRA)", "新左營"], ["T-ZY", "Zuoying (TRA)", "左營"], ["T-NW", "Neiwei", "內惟"], ["T-MF", "Museum of Fine Arts", "美術館"], ["T-GS", "Gushan", "鼓山"], ["T-SK", "Sankuaicuo", "三塊厝"], ["T-KH", "Kaohsiung", "高雄"], ["T-MZ", "Minzu", "民族"], ["T-ST", "Science & Tech Museum", "科工館"], ["T-ZYI", "Zhengyi", "正義"], ["T-FS", "Fengshan", "鳳山"]]};
 const NS='http://www.w3.org/2000/svg';
 const colors={red:'#fd6578',orange:'#ffa947',lrt:'#4acb96',tra:'#80b9f8'};
 const stations=new Map(),edges=new Map(),seq={};
@@ -70,7 +70,7 @@ DATA.lrt.forEach(([id,en,zh],i)=>{
  const point=lrtAnchors[i];stations.set(id,{id,en,zh,line:'lrt',x:point[0],y:point[1]});
 });
 // TRA alignment is schematic; rail transport stops are not all interchange nodes.
-const txy=[[580,260],[450,276],[330,330],[244,397],[432,434],[625,465],[736,494],[836,535],[922,592],[1014,659]];
+const txy=[[592,260],[528,267],[450,276],[330,330],[244,397],[432,434],[625,465],[736,494],[836,535],[922,592],[1014,659]];
 DATA.tra.forEach(([id,en,zh],i)=>stations.set(id,{id,en,zh,line:'tra',x:txy[i][0],y:txy[i][1]}));
 const allseq=['red','orange','lrt','tra'];
 function link(a,b,kind='ride'){if(!stations.has(a)||!stations.has(b))throw Error(a+' '+b);for(const [s,t] of [[a,b],[b,a]]){if(!edges.has(s))edges.set(s,[]);edges.get(s).push({to:t,kind})}}
@@ -79,10 +79,10 @@ link('C37','C1');
 // Interchange links, not necessarily paid-area transfers. Shown as walks.
 // Only the strongest verified transfer links are included in this prototype.
 // Some are outside the fare gates; R8 ↔ C8 specifically requires street walking.
-// Removed earlier fictitious links O7/O8 ↔ C32 and R16 ↔ TRA Zuoying:
-// TRA Zuoying is distinct from the TRA Xinzuoying interchange at R16.
+// Removed earlier fictitious links O7/O8 ↔ C32 and R16 ↔ TRA Zuoying.
+// TRA Zuoying is distinct from TRA Xinzuoying, which DOES interchange with R16.
 const transfers=[
- ['R10','O5'],['R6','C3'],['R13','C24'],['O1','C14'],
+ ['R10','O5'],['R6','C3'],['R13','C24'],['O1','C14'],['R16','T-XZY'],
  ['R11','T-KH'],['C18','T-GS'],['C20','T-MF'],['C30','T-ST'],
  ['R8','C8']
 ];
@@ -92,7 +92,7 @@ const path=(ids)=>ids.map((id,i)=>{const s=stations.get(id);return (i?'L':'M')+s
 allseq.forEach(l=>{make('path',{d:path(seq[l]),class:'track '+({red:'r',orange:'o',lrt:'c',tra:'t'}[l])},lines)});
 make('path',{d:path(['C37','C1']),class:'track c'},lines);
 transfers.forEach(([a,b])=>make('line',{x1:stations.get(a).x,y1:stations.get(a).y,x2:stations.get(b).x,y2:stations.get(b).y,class:'connector'},walks));
-const majors=new Set(['R10','R11','R13','R16','R6','R8','O1','O5','O8','C3','C14','C18','C20','C24','C30','C32','T-NW','T-KH','T-MF','T-GS','T-ST']);
+const majors=new Set(['R10','R11','R13','R16','R6','R8','O1','O5','O8','C3','C14','C18','C20','C24','C30','C32','T-XZY','T-NW','T-KH','T-MF','T-GS','T-ST']);
 for(const s of stations.values()){
  const g=make('g',{class:'station'+(majors.has(s.id)?' major':''),'data-id':s.id},dots);
  const c=make('circle',{cx:s.x,cy:s.y,r:majors.has(s.id)?6.5:4.5,stroke:colors[s.line]},g);
@@ -177,44 +177,86 @@ function compute(start,end,profile,blocked=null){
 function measures(route){const walks=route.kinds.filter(x=>x==='walk').length;
  return {walks,segments:route.kinds.length-walks,transfers:walks};
 }
+function routeAlongLine(a,b){
+ const sa=stations.get(a),sb=stations.get(b);
+ if(!sa||!sb||sa.line!==sb.line)return null;
+ const list=seq[sa.line],i=list.indexOf(a),j=list.indexOf(b);
+ if(i<0||j<0)return null;
+ if(sa.line!=='lrt'){
+  const ids=list.slice(Math.min(i,j),Math.max(i,j)+1);
+  if(i>j)ids.reverse();return ids;
+ }
+ // Circular LRT: choose the shorter of the two directions.
+ const forward=[],backward=[];
+ for(let k=i;;k=(k+1)%list.length){forward.push(list[k]);if(k===j)break}
+ for(let k=i;;k=(k-1+list.length)%list.length){backward.push(list[k]);if(k===j)break}
+ return forward.length<=backward.length?forward:backward;
+}
+function routeViaSingleTransfer(start,end,a,b){
+ const first=routeAlongLine(start,a),last=routeAlongLine(b,end);
+ if(!first||!last)return null;
+ return {ids:[...first,...last],kinds:[...Array(first.length-1).fill('ride'),'walk',...Array(last.length-1).fill('ride')]};
+}
 function buildCandidates(start,end){
  const unique=new Map();
- function offer(r,source){if(!r || r.ids.length<2 || r.ids.length>110)return;
- const signature=r.ids.join('|');if(!unique.has(signature))unique.set(signature,{...r,source,...measures(r)});}
+ function offer(r,source){if(!r||r.ids.length<2||r.ids.length>110)return;
+  // Discard any accidental loop or repeated stop.
+  if(new Set(r.ids).size!==r.ids.length)return;
+  const signature=r.ids.join('|');if(!unique.has(signature))unique.set(signature,{...r,source,...measures(r)});
+ }
  for(const p of profiles)offer(compute(start,end,p),p.id);
- // Find additional genuinely different paths by temporarily avoiding a single
- // segment on the baseline route. Reject detours much longer than the baseline.
+ // Enumerate direct interchange alternatives explicitly. A northbound trip via
+ // Xinzuoying must not vanish just because the southern route has fewer stops.
+ for(const [a,b] of transfers){
+  offer(routeViaSingleTransfer(start,end,a,b),'via '+a);
+  offer(routeViaSingleTransfer(start,end,b,a),'via '+b);
+ }
+ // Look for plausible two-transfer routes using the same physical network.
+ // Blocking edges generates alternatives that use another interchange without
+ // requiring a full timetable-aware routing engine.
  const baseline=compute(start,end,profiles[0]);
  if(baseline){for(let i=0;i<baseline.ids.length-1;i++){
   const blocked=baseline.ids[i]+'>'+baseline.ids[i+1];
   for(const p of profiles)offer(compute(start,end,p,blocked),'alternative');
  }}
- const arr=[...unique.values()];const base=baseline?measures(baseline):{segments:Infinity};
- return arr.filter(r=>r.segments<=base.segments+Math.max(8,Math.ceil(base.segments*.55)) && r.walks<=4)
-   .sort((a,b)=>(a.segments+4*a.walks)-(b.segments+4*b.walks));
+ const arr=[...unique.values()];
+ return arr.filter(r=>r.walks<=4).sort((a,b)=>(a.segments+4*a.walks)-(b.segments+4*b.walks));
+}
+function transferSignature(r){
+ const names=[];
+ r.kinds.forEach((k,i)=>{if(k==='walk'){
+   const a=stations.get(r.ids[i]),b=stations.get(r.ids[i+1]);
+   const label=(a.id==='T-XZY'||b.id==='T-XZY'||a.id==='R16'||b.id==='R16')?'Zuoying / Xinzuoying':
+      (a.id==='R11'||b.id==='R11'||a.id==='T-KH'||b.id==='T-KH')?'Kaohsiung Main Station':
+      (a.en===b.en?a.en:a.en+' / '+b.en);
+   names.push(label);
+ }});
+ return names.join(' • ');
 }
 function chooseVariants(all){
  if(!all.length)return [];
  const score=r=>r.segments+4*r.walks;
- const shortest=all.reduce((best,r)=>!best||score(r)<score(best)?r:best,null);
- // A direct ride without walking transfers is already the clearest option.
- // Do not manufacture alternatives by blocking parts of that direct line.
- if(shortest.walks===0)return [shortest];
- const chosen=[shortest];
- // Offer only meaningful improvements. A walk link is an approximate transfer;
- // extra routes without a measurable advantage are noise, not choices.
- const improvements=all.filter(r=>r!==shortest && (
-   r.walks<shortest.walks ||
-   (r.walks===shortest.walks && r.segments<shortest.segments)
- ) && r.segments<=shortest.segments+Math.max(5,Math.ceil(shortest.segments*.35)));
- improvements.sort((a,b)=>a.walks-b.walks || score(a)-score(b));
- for(const r of improvements){if(chosen.length>=3)break;chosen.push(r)}
+ const best=all[0];
+ // Do not advertise useless detours when a single line already joins stations.
+ if(best.walks===0)return [best];
+ const chosen=[best],seen=new Set([transferSignature(best)]);
+ // Alternatives are useful when they involve a DIFFERENT interchange and are
+ // within a reasonable schematic detour allowance, even if one has more stops.
+ const plausible=all.filter(r=>r!==best && r.walks<=best.walks &&
+    r.segments<=Math.max(best.segments+5,Math.ceil(best.segments*1.7)))
+   .sort((a,b)=>score(a)-score(b));
+ for(const r of plausible){
+  const signature=transferSignature(r);
+  if(!signature||seen.has(signature))continue;
+  seen.add(signature);chosen.push(r);
+  if(chosen.length>=3)break;
+ }
  return chosen;
 }
-function routeTitle(r,i){if(i===0)return ['Short route','較短路線'];
- const a=candidates[0];
- if(r.walks<a.walks)return ['Less walking','少步行'];
- if(r.transfers<a.transfers)return ['Fewer transfers','少轉乘'];
+function routeTitle(r,i){
+ if(i===0)return ['Short route','較短路線'];
+ const via=transferSignature(r);
+ if(via)return ['Via '+via,'經由 '+via];
  return ['Alternative '+(i+1),'其他路線'];
 }
 function renderRouteOptions(){routeOptions.replaceChildren();routeOptions.hidden=candidates.length<2;if(candidates.length<2)return;
