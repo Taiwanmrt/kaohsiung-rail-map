@@ -149,11 +149,11 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 #map:not(.route-focus) .track{transition:opacity .2s ease}
 #map:not(.route-focus) .station{transition:opacity .2s ease}
 .city-pick-hint{margin:0;padding:5px 12px 7px;font-size:12px;color:var(--sub);background:var(--bg)}
-</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.4</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.4</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
+</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.6</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.6</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
 <div class="city-search"><input id="placeSearch" type="search" placeholder="English address or place / 英文地址或地點" aria-label="Place to find"><button id="placeGo" type="button">Find</button></div>
 <div id="placeResults" class="city-results" aria-live="polite"></div>
 <p id="cityPickHint" class="city-pick-hint">Tap the map to choose an exact destination if the address is not found.</p><div class="city-walkbar city-walkbar-main"><button type="button" id="walkRoute">Show walking route</button><button type="button" id="walkClear">Clear walk</button></div><div id="walkStatus" class="city-status city-status-main" aria-live="polite">Tap a destination on the map; a walking route from the selected station will be requested.</div><div id="cityFrameSlot" class="city-large-map"></div>
-<div class="city-quick"><button type="button" id="cityFrom" hidden>Show departure</button><button type="button" id="cityTo" hidden>Show destination</button><span id="cityCount">M · MRT　T · TRA　L · LRT</span></div>
+<div class="city-quick"><button type="button" id="cityFrom" hidden>Show departure</button><button type="button" id="cityTo" hidden>Show destination</button><span id="cityCount">M · MRT　T · TRA　L · LRT</span><button type="button" id="retryStations" hidden title="Retry station data">↻ Stations</button></div>
 <details class="city-more" id="cityMore"><summary>More options / 更多選項</summary>
   <div class="city-header"><p class="city-note">Select a point on the map or search in English. Only stations with verified coordinates are marked.</p><a href="https://www.openstreetmap.org/search?query=Kaohsiung" target="_blank" rel="noopener noreferrer" id="osmSearchLink">Search on OpenStreetMap ↗</a></div>
   <div class="place-actions"><button type="button" id="googlePlace">Find on Google Maps ↗</button><button type="button" id="googleWalk">Walk in Google Maps ↗</button></div>
@@ -301,7 +301,7 @@ window.visualViewport?.addEventListener('scroll',alignOpenSuggestions);
 
 const routeOptions=document.getElementById('routeOptions');
 const detailsToggle=document.getElementById('detailsToggle'),detailsContent=document.getElementById('detailsContent');
-detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.4</span>'});
+detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.6</span>'});
 function options(el){const empty=document.createElement('option');empty.value='';empty.textContent='Select station / 選擇車站';el.append(empty);for(const name of allseq){const group=document.createElement('optgroup');group.label={red:'MRT Red',orange:'MRT Orange',lrt:'LRT Circular',tra:'TRA Urban'}[name];DATA[name].forEach(([id,en,zh])=>{let o=document.createElement('option');o.value=id;o.textContent=id+' · '+en+' / '+zh;group.appendChild(o)});el.append(group)}}
 options(from);options(to);
 let next='from';
@@ -707,7 +707,7 @@ function applyLanguage(nextLanguage){
  document.getElementById('walkRoute').textContent=t.walk;
  document.getElementById('walkClear').textContent=t.clear;
  const opened=!detailsContent.hidden;
- detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.4</span>';
+ detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.6</span>';
  for(const el of stationLabels){const st=stations.get(el.parentNode.dataset.id);if(st)el.textContent=st.id+' '+(lang==='zh'?st.zh:st.en)}
  // Recalculate fixed positions only when the language is changed, never on pan/zoom.
  fixedLabelPositions.clear();fixedLabelsReady=false;layoutMapLabelsOnce();render();
@@ -876,7 +876,10 @@ function addCityPin(id,coord){const st=stations.get(id);if(!st)return;const lett
 // Kaohsiung. Load a single bounded request and cache for 7 days. Do not
 // invent coordinates from the hand-drawn rail diagram.
 let osmStationCount=0,osmPins=new Map(),osmLoaded=false,osmBusy=false;
-const OSM_STATIONS_CACHE='kaohsiung-stations-osm-v1';
+const OSM_STATIONS_CACHE='kaohsiung-stations-osm-v35';
+const retryStations=document.getElementById('retryStations');
+function stationProgress(message,allowRetry=false){cityCount.textContent=message;retryStations.hidden=!allowRetry;}
+retryStations.addEventListener('click',()=>{osmLoaded=false;void loadOsmStations()});
 function stationMode(tags){
  const rail=(tags.railway||'').toLowerCase();
  const station=(tags.station||'').toLowerCase();
@@ -923,6 +926,7 @@ function renderOsmStations(elements){
   const name=tags['name:en']||tags['name:zh']||tags.name||tags.ref||'';
   if(!name)continue;
   if(candidates.some(p=>p.mode===mode&&Math.abs(p.lat-lat)<.00045&&Math.abs(p.lon-lon)<.00045))continue;
+  if([...osmPins.values()].some(p=>p.mode===mode&&Math.abs(p.lat-lat)<.00045&&Math.abs(p.lon-lon)<.00045))continue;
   candidates.push({lat,lon,name,mode,known});
  }
  for(const p of candidates){
@@ -939,31 +943,68 @@ function renderOsmStations(elements){
    }
    pin.bindPopup(root).openPopup();
   });
-  osmPins.set(p.mode+':'+p.name+':'+p.lat.toFixed(5),{pin,mode:p.mode});
+  osmPins.set(p.mode+':'+p.name+':'+p.lat.toFixed(5),{pin,mode:p.mode,lat:p.lat,lon:p.lon});
  }
  osmStationCount=osmPins.size;
- cityCount.textContent=(cityPins.size+osmStationCount)+' station markers · dots at overview / M MRT · L LRT · T TRA';
+ stationProgress((cityPins.size+osmStationCount)+' mapped stations · dots when zoomed out / M · L · T');
  refreshCityPins();
+}
+// Prefer a municipal GIS layer for LRT and OSM for additional MRT/TRA stops.
+// Store coordinates only when a source has returned actual geographical points;
+// never fabricate positions from the schematic SVG layout.
+async function jsonWithDeadline(url,options={},ms=11500){
+ const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),ms);
+ try{const response=await fetch(url,{...options,signal:ctrl.signal});
+  if(!response.ok)throw new Error('HTTP '+response.status);
+  return await response.json();
+ }finally{clearTimeout(timer)}
+}
+async function getMunicipalLrt(){
+ const url='https://services6.arcgis.com/ZQ3vYRJIbpufErto/ArcGIS/rest/services/%E9%AB%98%E9%9B%84%E8%BC%95%E8%BB%8C%E8%A7%80%E5%85%89%E5%9C%96_WFL1/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=geojson';
+ const data=await jsonWithDeadline(url,{},11500);
+ return (data.features||[]).flatMap(f=>{
+  if(f.geometry?.type!=='Point'||!Array.isArray(f.geometry.coordinates))return [];
+  const [lon,lat]=f.geometry.coordinates,prop=f.properties||{};
+  const ref=String(prop.MARKID||prop.markid||'').toUpperCase().trim();
+  const name=String(prop.MARKNAME1||prop.MARKNAME||prop.name||ref).trim();
+  return [{type:'node',lat,lon,tags:{railway:'tram_stop',ref,name,network:'Kaohsiung Light Rail'}}];
+ });
+}
+async function getOverpass(){
+ const query='[out:json][timeout:22];(node["railway"~"^(station|halt|tram_stop)$"](22.50,120.19,22.84,120.50);way["railway"~"^(station|halt|tram_stop)$"](22.50,120.19,22.84,120.50);node["public_transport"="station"]["station"~"^(subway|light_rail|train)$"](22.50,120.19,22.84,120.50);way["public_transport"="station"]["station"~"^(subway|light_rail|train)$"](22.50,120.19,22.84,120.50););out center tags;';
+ const endpoints=['https://overpass.private.coffee/api/interpreter','https://overpass.kumi.systems/api/interpreter'];
+ let lastError;
+ for(const endpoint of endpoints){
+  try{const data=await jsonWithDeadline(endpoint,{method:'POST',body:new URLSearchParams({data:query})},14500);return data.elements||[]}
+  catch(e){lastError=e;console.warn('Station index source unavailable',endpoint,e)}
+ }
+ throw lastError||new Error('Station index unavailable');
 }
 async function loadOsmStations(){
  if(osmLoaded||osmBusy||!cityMap)return;
- osmBusy=true;
+ osmBusy=true;retryStations.hidden=true;
+ stationProgress((cityPins.size+osmPins.size)+' known stations · loading additional stops…');
+ let restored=false,successfulSources=0;
  try{
-  let elements=null;
-  try{const c=JSON.parse(localStorage.getItem(OSM_STATIONS_CACHE)||'null');if(c&&Date.now()-c.date<7*86400000&&Array.isArray(c.elements))elements=c.elements;}catch{}
-  if(!elements){
-   // One bounded request rather than making 88 separate geocoding calls.
-   const query='[out:json][timeout:25];(node["railway"~"^(station|halt|tram_stop)$"](22.50,120.19,22.84,120.50);node["public_transport"="station"]["station"~"^(subway|light_rail|train)$"](22.50,120.19,22.84,120.50););out body;';
-   const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),19000);
-   let res;
-   try{res=await fetch('https://overpass.private.coffee/api/interpreter',{method:'POST',body:new URLSearchParams({data:query}),signal:ctrl.signal})}finally{clearTimeout(timer)}
-   if(!res.ok)throw Error('OSM stations '+res.status);
-   const json=await res.json();elements=json.elements||[];
-   try{localStorage.setItem(OSM_STATIONS_CACHE,JSON.stringify({date:Date.now(),elements}))}catch{}
+  try{const cache=JSON.parse(localStorage.getItem(OSM_STATIONS_CACHE)||'null');
+   if(cache&&Date.now()-cache.date<7*86400000&&Array.isArray(cache.elements)&&cache.elements.length>5){
+    renderOsmStations(cache.elements);restored=true;successfulSources=2;
+   }
+  }catch(e){console.warn('Station cache ignored',e)}
+  if(!restored){
+   const results=await Promise.allSettled([getMunicipalLrt(),getOverpass()]);
+   const all=[];
+   for(const r of results){if(r.status==='fulfilled'){
+    successfulSources++;all.push(...r.value);if(r.value.length)renderOsmStations(r.value);
+   }else console.warn('Station layer not loaded',r.reason)}
+   if(all.length)try{localStorage.setItem(OSM_STATIONS_CACHE,JSON.stringify({date:Date.now(),elements:all}))}catch{}
   }
-  renderOsmStations(elements);osmLoaded=true;
- }catch(e){console.warn('More station points not available',e);
-  cityCount.textContent=cityPins.size+' confirmed pins · additional station data temporarily unavailable';
+  osmLoaded=successfulSources===2;
+  const n=cityPins.size+osmPins.size;
+  stationProgress(n+' mapped station points'+(successfulSources<2?' · some sources unavailable':''),successfulSources<2);
+ }catch(e){
+  console.warn('More station points not available',e);
+  stationProgress((cityPins.size+osmPins.size)+' confirmed station points · tap ↻ to retry',true);
  }finally{osmBusy=false}
 }
 async function initializeCity(){if(cityStatus!=='idle')return;cityStatus='loading';cityCount.textContent='Loading geographic map…';try{
@@ -978,7 +1019,7 @@ async function initializeCity(){if(cityStatus!=='idle')return;cityStatus='loadin
  for(const [id,coord] of Object.entries(GEO))addCityPin(id,coord);
  cityMap.on('zoomend',refreshCityPins);refreshCityPins();
  void loadOsmStations();
- cityStatus='ready';cityCount.textContent=cityPins.size+' pins · M MRT / T TRA / L LRT';
+ cityStatus='ready';stationProgress(cityPins.size+' known points · loading more stations…');
  updateCityButtons();
   cityMap.on('click',e=>{if(e.originalEvent?.target?.closest?.('.station-pin'))return;choosePlace([e.latlng.lat,e.latlng.lng],lang==='zh'?'地圖上選取的地點':'Selected point on map')});
  }catch(e){console.warn('Geographic map unavailable',e);cityStatus='fallback';cityCount.textContent='Geographic map fallback';fallbackCity()}}
@@ -1170,9 +1211,10 @@ async function showWalking(){
   const geo=r.geometry;
   const points=geo.coordinates.map(c=>[c[1],c[0]]);
   if(points.length<2)throw Error('Insufficient route geometry');
-  // Layer above map markers and with a white outline, always visible on OSM tiles.
-  const casing=L.polyline(points,{pane:'walkingOnTop',color:'#ffffff',weight:10,opacity:.95,interactive:false});
-  const path=L.polyline(points,{pane:'walkingOnTop',color:'#1469de',weight:6,opacity:1,interactive:false});
+  // Lightweight, dashed pedestrian route (distinct from solid rail lines).
+  // A subtle pale underlay keeps dashes legible against both bright and dark streets.
+  const casing=L.polyline(points,{pane:'walkingOnTop',color:'#f4f8ff',weight:4.5,opacity:.65,dashArray:'3 8',lineCap:'round',lineJoin:'round',interactive:false});
+  const path=L.polyline(points,{pane:'walkingOnTop',color:'#1766ce',weight:2.5,opacity:.95,dashArray:'3 8',lineCap:'round',lineJoin:'round',interactive:false});
   footLayer=L.layerGroup([casing,path]).addTo(cityMap);
   destinationPin=L.marker([end.lat,end.lon]).addTo(cityMap).bindPopup(end.name);
   cityMap.fitBounds(path.getBounds().pad(.25),{maxZoom:17,animate:false});
