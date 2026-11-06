@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>Kaohsiung Rail Map · Prototype</title><meta name="theme-color" content="#101a29"><style>
-:root{color-scheme:dark;--bg:#0d1624;--panel:#172438;--border:#31425b;--text:#eaf2fc;--sub:#a3b5cb;--red:#fd6578;--orange:#ffa947;--lrt:#4acb96;--tra:#80b9f8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px system-ui,-apple-system,'Segoe UI',sans-serif}header{padding:18px 16px 12px;max-width:1200px;margin:auto}h1{font-size:21px;margin:0 0 4px;letter-spacing:-.03em}.muted{color:var(--sub);font-size:12px;margin:0}.app{max-width:1200px;margin:auto;display:grid;grid-template-columns:320px 1fr;gap:12px;padding:0 12px 16px}.panel,.mapPanel{background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden}.panel{padding:16px;align-self:start}.label{font-size:11px;color:var(--sub);margin-bottom:5px;display:block}.field{margin-bottom:13px}select{width:100%;background:#0d1829;border:1px solid #4a5f77;color:white;border-radius:10px;padding:12px 10px;font-size:13px}.actions{display:flex;gap:8px;margin-bottom:14px}button{border:1px solid #4b617c;background:#233650;color:#fff;border-radius:9px;padding:10px 12px;cursor:pointer;font:inherit}button:active{transform:scale(.98)}button.primary{background:#3b7ddd;border:0;flex:1}.legend{display:flex;gap:7px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}.pill{font-size:11px;border-radius:30px;border:1px solid #56697c;padding:5px 9px}.result{margin-top:12px;min-height:92px}.result h3{font-size:14px;margin:0 0 9px}.result p{margin:6px 0;color:var(--sub);font-size:12px;line-height:1.5}.step{display:flex;align-items:flex-start;gap:9px;margin-top:10px;font-size:12px}.step .dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px;margin-top:4px}.small{font-size:11px;line-height:1.55;color:var(--sub)}.mapPanel{position:relative;min-height:660px}.toolbar{position:absolute;right:10px;top:10px;z-index:5;display:flex;gap:6px}.toolbar button{padding:8px 11px;background:#17283ddd;backdrop-filter:blur(8px)}.mapwrap{height:min(80vh,880px);min-height:640px;touch-action:none;overflow:hidden;position:relative;cursor:grab}.mapwrap:active{cursor:grabbing}svg{display:block;width:100%;height:100%;user-select:none}.mapBg{fill:var(--bg)}.track{fill:none;stroke-width:7;opacity:.6;stroke-linecap:round;stroke-linejoin:round}.track.r{stroke:var(--red)}.track.o{stroke:var(--orange)}.track.c{stroke:var(--lrt)}.track.t{stroke:var(--tra);stroke-dasharray:12 6}.connector{stroke:#b9c8da;stroke-width:2.5;stroke-dasharray:4 5;opacity:.65}.station{cursor:pointer}.station circle{fill:#16283b;stroke-width:2.5}.station .hit{stroke:none;fill:transparent}.station text{font-size:10px;fill:#b6c4d7;paint-order:stroke;stroke:#101d2e;stroke-width:3px;stroke-linejoin:round;pointer-events:none}.station.major text{font-size:12px;font-weight:650;fill:#f1f5fb}.station.active circle:not(.hit){fill:#fff;stroke:#fff}.route{fill:none;stroke:#f9f9fb;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px #ffffffa8);pointer-events:none}.route.walk{stroke:#f9f9fb;stroke-width:5;stroke-dasharray:3 9}.selection{fill:#fff;stroke:#101d2e;stroke-width:4}.tip{position:absolute;bottom:8px;left:10px;right:10px;text-align:center;font-size:11px;color:#bdd0e4;background:#111f31e8;border-radius:9px;padding:8px}.notice{background:#20364a;border-left:3px solid #f4b754;border-radius:6px;padding:9px;margin:12px 0;font-size:11px;line-height:1.45;color:#d9e5f2}a{color:#a9cfff}footer{max-width:1200px;margin:0 auto;padding:0 15px 20px;color:var(--sub);font-size:11px;line-height:1.5}@media(max-width:800px){.app{display:flex;flex-direction:column}.panel{width:100%}.mapPanel{width:100%}.mapwrap{height:68vh;min-height:470px}header{padding:15px 15px 12px}h1{font-size:19px}.legend{padding:10px 0}.result{min-height:0}}
+:root{color-scheme:dark;--bg:#0d1624;--panel:#172438;--border:#31425b;--text:#eaf2fc;--sub:#a3b5cb;--red:#fd6578;--orange:#ffa947;--lrt:#4acb96;--tra:#80b9f8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px system-ui,-apple-system,'Segoe UI',sans-serif}header{padding:18px 16px 12px;max-width:1200px;margin:auto}h1{font-size:21px;margin:0 0 4px;letter-spacing:-.03em}.muted{color:var(--sub);font-size:12px;margin:0}.app{max-width:1200px;margin:auto;display:grid;grid-template-columns:320px 1fr;gap:12px;padding:0 12px 16px}.panel,.mapPanel{background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden}.panel{padding:16px;align-self:start}.label{font-size:11px;color:var(--sub);margin-bottom:5px;display:block}.field{margin-bottom:13px}select{width:100%;background:#0d1829;border:1px solid #4a5f77;color:white;border-radius:10px;padding:12px 10px;font-size:13px}.actions{display:flex;gap:8px;margin-bottom:14px}button{border:1px solid #4b617c;background:#233650;color:#fff;border-radius:9px;padding:10px 12px;cursor:pointer;font:inherit}button:active{transform:scale(.98)}button.primary{background:#3b7ddd;border:0;flex:1}.legend{display:flex;gap:7px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}.pill{font-size:11px;border-radius:30px;border:1px solid #56697c;padding:5px 9px}.result{margin-top:12px;min-height:92px}.result h3{font-size:14px;margin:0 0 9px}.result p{margin:6px 0;color:var(--sub);font-size:12px;line-height:1.5}.step{display:flex;align-items:flex-start;gap:9px;margin-top:10px;font-size:12px}.step .dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px;margin-top:4px}.small{font-size:11px;line-height:1.55;color:var(--sub)}.mapPanel{position:relative;min-height:660px}.toolbar{position:absolute;right:10px;top:10px;z-index:5;display:flex;gap:6px}.toolbar button{padding:8px 11px;background:#17283ddd;backdrop-filter:blur(8px)}.mapwrap{height:min(80vh,880px);min-height:640px;touch-action:none;overflow:hidden;position:relative;cursor:grab}.mapwrap:active{cursor:grabbing}#map{display:block;width:100%;height:100%;user-select:none}.mapBg{fill:var(--bg)}.track{fill:none;stroke-width:7;opacity:.6;stroke-linecap:round;stroke-linejoin:round}.track.r{stroke:var(--red)}.track.o{stroke:var(--orange)}.track.c{stroke:var(--lrt)}.track.t{stroke:var(--tra);stroke-dasharray:12 6}.connector{stroke:#b9c8da;stroke-width:2.5;stroke-dasharray:4 5;opacity:.65}.station{cursor:pointer}.station circle{fill:#16283b;stroke-width:2.5}.station .hit{stroke:none;fill:transparent}.station text{font-size:10px;fill:#b6c4d7;paint-order:stroke;stroke:#101d2e;stroke-width:3px;stroke-linejoin:round;pointer-events:none}.station.major text{font-size:12px;font-weight:650;fill:#f1f5fb}.station.active circle:not(.hit){fill:#fff;stroke:#fff}.route{fill:none;stroke:#f9f9fb;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px #ffffffa8);pointer-events:none}.route.walk{stroke:#f9f9fb;stroke-width:5;stroke-dasharray:3 9}.selection{fill:#fff;stroke:#101d2e;stroke-width:4}.tip{position:absolute;bottom:8px;left:10px;right:10px;text-align:center;font-size:11px;color:#bdd0e4;background:#111f31e8;border-radius:9px;padding:8px}.notice{background:#20364a;border-left:3px solid #f4b754;border-radius:6px;padding:9px;margin:12px 0;font-size:11px;line-height:1.45;color:#d9e5f2}a{color:#a9cfff}footer{max-width:1200px;margin:0 auto;padding:0 15px 20px;color:var(--sub);font-size:11px;line-height:1.5}@media(max-width:800px){.app{display:flex;flex-direction:column}.panel{width:100%}.mapPanel{width:100%}.mapwrap{height:68vh;min-height:470px}header{padding:15px 15px 12px}h1{font-size:19px}.legend{padding:10px 0}.result{min-height:0}}
 
 /* Minimal map-first interface */
 header,footer,.tip{display:none}
@@ -84,9 +84,18 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 .city-quick #cityCount{font-size:10px;color:var(--sub)}
 .city-view{height:min(94vh,860px)}
 .city-view .leaflet-container{background:#d5dfd8;font:12px system-ui,-apple-system,sans-serif}
+.city-view .leaflet-overlay-pane svg{width:auto!important;height:auto!important;max-width:none!important;overflow:visible}
+.city-view .leaflet-overlay-pane path{vector-effect:none}
 .station-pin{width:25px;height:25px;border:2px solid white;border-radius:7px;box-shadow:0 2px 6px #0007;color:#092033;font-weight:900;font-size:15px;display:grid;place-items:center;line-height:1;box-sizing:border-box}
 .station-pin.red{background:#fd6578}.station-pin.orange{background:#ffa947}.station-pin.lrt{background:#4acb96}.station-pin.tra{background:#80b9f8}
-.station-pin.lrt{border-radius:50%}
+ .station-pin.lrt{border-radius:50%}
+/* At overview scale keep every available station unobtrusive; reveal a letter when zoomed in. */
+.station-pin{transition:width .1s,height .1s,font-size .1s;user-select:none}
+.city-view .station-pin.pin-small{width:10px;height:10px;border-radius:50%;font-size:0!important;border-width:1.5px;box-shadow:0 1px 3px #0008}
+.city-view .station-pin.pin-small::first-letter{font-size:0}
+.city-view .station-pin.pin-large{width:24px;height:24px;font-size:14px}
+.city-view .station-pin.pin-medium{width:17px;height:17px;font-size:10px;border-radius:50%}
+.city-view .station-pin.pin-medium span{display:none}
 .city-walkbar-main{padding:6px 12px 2px;flex-shrink:0}
 .city-walkbar-main button:first-child{background:#326aa8;color:#fff}
 .city-status-main{font-size:12px;padding:3px 12px 7px;line-height:1.35;color:var(--sub);flex-shrink:0;max-height:88px;overflow:auto}
@@ -140,7 +149,7 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 #map:not(.route-focus) .track{transition:opacity .2s ease}
 #map:not(.route-focus) .station{transition:opacity .2s ease}
 .city-pick-hint{margin:0;padding:5px 12px 7px;font-size:12px;color:var(--sub);background:var(--bg)}
-</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.3</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.3</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
+</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.4</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.4</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
 <div class="city-search"><input id="placeSearch" type="search" placeholder="English address or place / 英文地址或地點" aria-label="Place to find"><button id="placeGo" type="button">Find</button></div>
 <div id="placeResults" class="city-results" aria-live="polite"></div>
 <p id="cityPickHint" class="city-pick-hint">Tap the map to choose an exact destination if the address is not found.</p><div class="city-walkbar city-walkbar-main"><button type="button" id="walkRoute">Show walking route</button><button type="button" id="walkClear">Clear walk</button></div><div id="walkStatus" class="city-status city-status-main" aria-live="polite">Tap a destination on the map; a walking route from the selected station will be requested.</div><div id="cityFrameSlot" class="city-large-map"></div>
@@ -292,7 +301,7 @@ window.visualViewport?.addEventListener('scroll',alignOpenSuggestions);
 
 const routeOptions=document.getElementById('routeOptions');
 const detailsToggle=document.getElementById('detailsToggle'),detailsContent=document.getElementById('detailsContent');
-detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.3</span>'});
+detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.4</span>'});
 function options(el){const empty=document.createElement('option');empty.value='';empty.textContent='Select station / 選擇車站';el.append(empty);for(const name of allseq){const group=document.createElement('optgroup');group.label={red:'MRT Red',orange:'MRT Orange',lrt:'LRT Circular',tra:'TRA Urban'}[name];DATA[name].forEach(([id,en,zh])=>{let o=document.createElement('option');o.value=id;o.textContent=id+' · '+en+' / '+zh;group.appendChild(o)});el.append(group)}}
 options(from);options(to);
 let next='from';
@@ -698,7 +707,7 @@ function applyLanguage(nextLanguage){
  document.getElementById('walkRoute').textContent=t.walk;
  document.getElementById('walkClear').textContent=t.clear;
  const opened=!detailsContent.hidden;
- detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.3</span>';
+ detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.4</span>';
  for(const el of stationLabels){const st=stations.get(el.parentNode.dataset.id);if(st)el.textContent=st.id+' '+(lang==='zh'?st.zh:st.en)}
  // Recalculate fixed positions only when the language is changed, never on pan/zoom.
  fixedLabelPositions.clear();fixedLabelsReady=false;layoutMapLabelsOnce();render();
@@ -862,7 +871,101 @@ let cityMap=null,cityStatus='idle',cityPins=new Map(),cityMarkers=null;
 function loadStyle(url){return new Promise((res,rej)=>{if(document.querySelector('link[data-leaflet]'))return res();let el=document.createElement('link');el.rel='stylesheet';el.href=url;el.dataset.leaflet='1';el.onload=res;el.onerror=rej;document.head.appendChild(el)})}
 function loadScript(url){return new Promise((res,rej)=>{if(window.L)return res();let el=document.createElement('script');el.src=url;el.onload=res;el.onerror=rej;document.head.appendChild(el)})}
 function fallbackCity(){if(citySlot.childElementCount)return;const frame=document.createElement('iframe');frame.className='city-map';frame.title='Kaohsiung · OpenStreetMap';frame.loading='lazy';frame.src='https://www.openstreetmap.org/export/embed.html?bbox=120.242%2C22.557%2C120.386%2C22.715&layer=mapnik';citySlot.appendChild(frame);cityCount.textContent='Interactive map unavailable. Use Google Maps for precise addresses; tap-to-select is unavailable here.';}
-function addCityPin(id,coord){const st=stations.get(id);if(!st)return;const letter=st.line==='lrt'?'L':st.line==='tra'?'T':'M';const icon=L.divIcon({html:'<div class="station-pin '+st.line+'">'+letter+'</div>',className:'',iconSize:[25,25],iconAnchor:[12,12]});const pin=L.marker(coord,{icon,title:st.en+' '+id}).addTo(cityMarkers);cityPins.set(id,pin);pin.on('click',()=>{const root=document.createElement('div');root.className='geo-popup';const label=document.createElement('strong');label.textContent=id+' · '+(lang==='zh'?st.zh:st.en);root.append(label);for(const [mode,text] of [['from',lang==='zh'?'設為起點':'Set start'],['to',lang==='zh'?'設為終點':'Set destination']]){const btn=document.createElement('button');btn.textContent=text;btn.onclick=()=>{chooseStation(mode,id);pin.closePopup();updateCityButtons()};root.append(btn)}pin.bindPopup(root).openPopup()})}
+function addCityPin(id,coord){const st=stations.get(id);if(!st)return;const letter=st.line==='lrt'?'L':st.line==='tra'?'T':'M';const icon=mapPinIcon(st.line,cityMap.getZoom());const pin=L.marker(coord,{icon,title:st.en+' '+id}).addTo(cityMarkers);cityPins.set(id,pin);pin.on('click',()=>{const root=document.createElement('div');root.className='geo-popup';const label=document.createElement('strong');label.textContent=id+' · '+(lang==='zh'?st.zh:st.en);root.append(label);for(const [mode,text] of [['from',lang==='zh'?'設為起點':'Set start'],['to',lang==='zh'?'設為終點':'Set destination']]){const btn=document.createElement('button');btn.textContent=text;btn.onclick=()=>{chooseStation(mode,id);pin.closePopup();updateCityButtons()};root.append(btn)}pin.bindPopup(root).openPopup()})}
+// City Map station coverage: OSM public transport stations and stops in
+// Kaohsiung. Load a single bounded request and cache for 7 days. Do not
+// invent coordinates from the hand-drawn rail diagram.
+let osmStationCount=0,osmPins=new Map(),osmLoaded=false,osmBusy=false;
+const OSM_STATIONS_CACHE='kaohsiung-stations-osm-v1';
+function stationMode(tags){
+ const rail=(tags.railway||'').toLowerCase();
+ const station=(tags.station||'').toLowerCase();
+ const network=((tags.network||'')+' '+(tags.operator||'')+' '+(tags.route||'')).toLowerCase();
+ const ref=(tags.ref||'').toUpperCase();
+ if(rail==='tram_stop'||station==='light_rail'||/高雄輕軌|light rail|klrt/.test(network)||/^C(?:[1-9]|[12][0-9]|3[0-7])(?:A)?$/.test(ref))return 'lrt';
+ if(station==='subway'||rail==='subway_entrance'||/metro|mrt|高雄捷運/.test(network)||/^(?:R\d+A?|RK1|O\d+|OT1)$/.test(ref))return /^O/.test(ref)?'orange':'red';
+ if(rail==='station'||rail==='halt'||station==='train'||/railways|臺鐵|台鐵|tra/.test(network))return 'tra';
+ return null;
+}
+function normalizeLabel(v){return String(v||'').toLowerCase().normalize('NFKC').replace(/[\s()（）.·\-_]/g,'')}
+function matchKnownStation(tags,mode){
+ const ref=String(tags.ref||tags['ref:KRTC']||tags['ref:TRA']||'').trim().toUpperCase();
+ if(ref&&stations.has(ref))return ref;
+ const names=[tags['name:en'],tags['name:zh'],tags.name].filter(Boolean).map(normalizeLabel);
+ const candidates=[...stations.values()].filter(st=>st.line===mode || (mode==='red'&&st.line==='orange')||(mode==='orange'&&st.line==='red'));
+ const matches=candidates.filter(st=>names.some(n=>n===normalizeLabel(st.en)||n===normalizeLabel(st.zh)));
+ return matches.length===1?matches[0].id:null;
+}
+function mapPinIcon(mode,zoom){
+ const small=zoom<14,medium=zoom>=14&&zoom<15;
+ const d=small?10:medium?17:24,cls=small?'pin-small':medium?'pin-medium':'pin-large';
+ const letter=mode==='lrt'?'L':mode==='tra'?'T':'M';
+ return L.divIcon({html:'<div class="station-pin '+mode+' '+cls+'">'+(small?'':letter)+'</div>',className:'',iconSize:[d,d],iconAnchor:[d/2,d/2],popupAnchor:[0,-d/2]});
+}
+function refreshCityPins(){
+ if(!cityMap)return;
+ const z=cityMap.getZoom();
+ for(const [id,pin] of cityPins){let mode=stations.get(id)?.line||'red';pin.setIcon(mapPinIcon(mode,z))}
+ for(const entry of osmPins.values())entry.pin.setIcon(mapPinIcon(entry.mode,z));
+}
+function renderOsmStations(elements){
+ if(!cityMap)return;
+ const candidates=[];
+ for(const el of elements){
+  const lat=el.lat??el.center?.lat,lon=el.lon??el.center?.lon;
+  if(!Number.isFinite(lat)||!Number.isFinite(lon)||lat<22.50||lat>22.84||lon<120.19||lon>120.50)continue;
+  const tags=el.tags||{};
+  const mode=stationMode(tags);if(!mode)continue;
+  if(tags.railway==='subway_entrance')continue; // entrances are not extra stations
+  if(tags.public_transport==='stop_position'&&tags.railway!=='tram_stop')continue;
+  const known=matchKnownStation(tags,mode);
+  if(known&&cityPins.has(known))continue;
+  const name=tags['name:en']||tags['name:zh']||tags.name||tags.ref||'';
+  if(!name)continue;
+  if(candidates.some(p=>p.mode===mode&&Math.abs(p.lat-lat)<.00045&&Math.abs(p.lon-lon)<.00045))continue;
+  candidates.push({lat,lon,name,mode,known});
+ }
+ for(const p of candidates){
+  if(p.known&&cityPins.has(p.known))continue;
+  const icon=mapPinIcon(p.mode,cityMap.getZoom());
+  const pin=L.marker([p.lat,p.lon],{icon,title:p.name,keyboard:true}).addTo(cityMarkers);
+  pin.on('click',()=>{
+   const root=document.createElement('div');root.className='geo-popup';
+   const strong=document.createElement('strong');strong.textContent=p.name;root.append(strong);
+   if(p.known){for(const [kind,label] of [['from',lang==='zh'?'設為起點':'Set start'],['to',lang==='zh'?'設為終點':'Set destination']]){
+    const b=document.createElement('button');b.textContent=label;b.onclick=()=>{chooseStation(kind,p.known);pin.closePopup();updateCityButtons()};root.append(b)
+   }}else{
+    const msg=document.createElement('p');msg.textContent=lang==='zh'?'尚未與路線圖站點配對':'Geographic stop: not yet linked to Rail Map';root.append(msg)
+   }
+   pin.bindPopup(root).openPopup();
+  });
+  osmPins.set(p.mode+':'+p.name+':'+p.lat.toFixed(5),{pin,mode:p.mode});
+ }
+ osmStationCount=osmPins.size;
+ cityCount.textContent=(cityPins.size+osmStationCount)+' station markers · dots at overview / M MRT · L LRT · T TRA';
+ refreshCityPins();
+}
+async function loadOsmStations(){
+ if(osmLoaded||osmBusy||!cityMap)return;
+ osmBusy=true;
+ try{
+  let elements=null;
+  try{const c=JSON.parse(localStorage.getItem(OSM_STATIONS_CACHE)||'null');if(c&&Date.now()-c.date<7*86400000&&Array.isArray(c.elements))elements=c.elements;}catch{}
+  if(!elements){
+   // One bounded request rather than making 88 separate geocoding calls.
+   const query='[out:json][timeout:25];(node["railway"~"^(station|halt|tram_stop)$"](22.50,120.19,22.84,120.50);node["public_transport"="station"]["station"~"^(subway|light_rail|train)$"](22.50,120.19,22.84,120.50););out body;';
+   const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),19000);
+   let res;
+   try{res=await fetch('https://overpass.private.coffee/api/interpreter',{method:'POST',body:new URLSearchParams({data:query}),signal:ctrl.signal})}finally{clearTimeout(timer)}
+   if(!res.ok)throw Error('OSM stations '+res.status);
+   const json=await res.json();elements=json.elements||[];
+   try{localStorage.setItem(OSM_STATIONS_CACHE,JSON.stringify({date:Date.now(),elements}))}catch{}
+  }
+  renderOsmStations(elements);osmLoaded=true;
+ }catch(e){console.warn('More station points not available',e);
+  cityCount.textContent=cityPins.size+' confirmed pins · additional station data temporarily unavailable';
+ }finally{osmBusy=false}
+}
 async function initializeCity(){if(cityStatus!=='idle')return;cityStatus='loading';cityCount.textContent='Loading geographic map…';try{
  const within=(task)=>Promise.race([task,new Promise((_,reject)=>setTimeout(()=>reject(new Error('Map library timeout')),7000))]);
  try{await within(loadStyle('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'))}
@@ -873,6 +976,8 @@ async function initializeCity(){if(cityStatus!=='idle')return;cityStatus='loadin
  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{minZoom:10,maxZoom:18,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a>'}).addTo(cityMap);
  cityMarkers=L.layerGroup().addTo(cityMap);
  for(const [id,coord] of Object.entries(GEO))addCityPin(id,coord);
+ cityMap.on('zoomend',refreshCityPins);refreshCityPins();
+ void loadOsmStations();
  cityStatus='ready';cityCount.textContent=cityPins.size+' pins · M MRT / T TRA / L LRT';
  updateCityButtons();
   cityMap.on('click',e=>{if(e.originalEvent?.target?.closest?.('.station-pin'))return;choosePlace([e.latlng.lat,e.latlng.lng],lang==='zh'?'地圖上選取的地點':'Selected point on map')});
@@ -886,9 +991,11 @@ const placeResults=document.getElementById('placeResults');
 const walkStatus=document.getElementById('walkStatus');
 const walkBtn=document.getElementById('walkRoute');
 let chosenPlace=null,destinationPin=null,footLayer=null,lastGeoRequestAt=0;
+let footRouteRequest=0;
+function ensureWalkingPane(){if(!cityMap.getPane('walkingOnTop'))cityMap.createPane('walkingOnTop');cityMap.getPane('walkingOnTop').style.zIndex='650';cityMap.getPane('walkingOnTop').style.pointerEvents='none'}
 const geoCache=new Map();
 function walkNote(en,zh){walkStatus.textContent=lang==='zh'?zh:en}
-function clearWalking(){if(footLayer&&cityMap){cityMap.removeLayer(footLayer);footLayer=null}if(destinationPin&&cityMap){cityMap.removeLayer(destinationPin);destinationPin=null}}
+function clearWalking(){footRouteRequest++;if(footLayer&&cityMap){cityMap.removeLayer(footLayer);footLayer=null}if(destinationPin&&cityMap){cityMap.removeLayer(destinationPin);destinationPin=null}}
 function choosePlace(coords,name){
  chosenPlace={lat:coords[0],lon:coords[1],name};
  if(cityStatus==='ready'&&cityMap){if(destinationPin)cityMap.removeLayer(destinationPin);destinationPin=L.marker(coords).addTo(cityMap).bindPopup(name);cityMap.flyTo(coords,15)}
@@ -1059,9 +1166,16 @@ async function showWalking(){
   const url='https://routing.openstreetmap.de/routed-foot/route/v1/driving/'+st[1]+','+st[0]+';'+end.lon+','+end.lat+'?overview=full&geometries=geojson&steps=false';
   const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),11000);let resp;try{resp=await fetch(url,{signal:controller.signal})}finally{clearTimeout(timer)}if(!resp.ok)throw Error('Walking '+resp.status);
   const data=await resp.json();const r=data.routes?.[0];if(!r||!r.geometry?.coordinates)throw Error('No foot route');
-  footLayer=L.geoJSON({type:'Feature',properties:{},geometry:r.geometry},{style:{color:'#287cd6',weight:6,opacity:.9}}).addTo(cityMap);
+  ensureWalkingPane();
+  const geo=r.geometry;
+  const points=geo.coordinates.map(c=>[c[1],c[0]]);
+  if(points.length<2)throw Error('Insufficient route geometry');
+  // Layer above map markers and with a white outline, always visible on OSM tiles.
+  const casing=L.polyline(points,{pane:'walkingOnTop',color:'#ffffff',weight:10,opacity:.95,interactive:false});
+  const path=L.polyline(points,{pane:'walkingOnTop',color:'#1469de',weight:6,opacity:1,interactive:false});
+  footLayer=L.layerGroup([casing,path]).addTo(cityMap);
   destinationPin=L.marker([end.lat,end.lon]).addTo(cityMap).bindPopup(end.name);
-  cityMap.fitBounds(footLayer.getBounds().pad(.2));
+  cityMap.fitBounds(path.getBounds().pad(.25),{maxZoom:17,animate:false});
   const minutes=Math.max(1,Math.round(r.duration/60));
   walkNote('Walk from '+stations.get(id).en+': '+Math.round(r.distance)+' m · about '+minutes+' min (estimate).',
    '從'+stations.get(id).zh+'步行：約 '+Math.round(r.distance)+' 公尺 · 約 '+minutes+' 分鐘（估計）');
