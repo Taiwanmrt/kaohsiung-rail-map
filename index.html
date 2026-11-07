@@ -149,13 +149,13 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 #map:not(.route-focus) .track{transition:opacity .2s ease}
 #map:not(.route-focus) .station{transition:opacity .2s ease}
 .city-pick-hint{margin:0;padding:5px 12px 7px;font-size:12px;color:var(--sub);background:var(--bg)}
-</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.12</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.12</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
+</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.13</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.13</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
 <div class="city-search"><input id="placeSearch" type="search" placeholder="English address or place / 英文地址或地點" aria-label="Place to find"><button id="placeGo" type="button">Find</button></div>
 <div id="placeResults" class="city-results" aria-live="polite"></div>
 <p id="cityPickHint" class="city-pick-hint">Tap the map to choose an exact destination if the address is not found.</p><div class="city-walkbar city-walkbar-main"><button type="button" id="walkRoute">Show walking route</button><button type="button" id="walkClear">Clear walk</button></div><div id="walkStatus" class="city-status city-status-main" aria-live="polite">Tap a destination: walking directions will start from your selected station or the nearest mapped station.</div><div id="cityFrameSlot" class="city-large-map"></div>
 <div class="city-quick"><button type="button" id="cityFrom" hidden>Show departure</button><button type="button" id="cityTo" hidden>Show destination</button><span id="cityCount">M · MRT　T · TRA　L · LRT</span><button type="button" id="retryStations" hidden title="Retry station data">↻ Stations</button></div>
 <details class="city-more" id="cityMore"><summary>More options / 更多選項</summary>
-  <div class="city-header"><p class="city-note">Select a point on the map or search in English. All 76 MRT/LRT, RK1 and 11 TRA coordinates are built in from published data. Tap ↻ Stations only for optional extra data.</p><a href="https://www.openstreetmap.org/search?query=Kaohsiung" target="_blank" rel="noopener noreferrer" id="osmSearchLink">Search on OpenStreetMap ↗</a></div>
+  <div class="city-header"><p class="city-note">Select a point on the map or search in English. All 88 station coordinates are built in from published data. The official Kaohsiung address index loads only when you search a street address. Tap ↻ Stations only for optional extra data.</p><a href="https://www.openstreetmap.org/search?query=Kaohsiung" target="_blank" rel="noopener noreferrer" id="osmSearchLink">Search on OpenStreetMap ↗</a></div>
   <div class="place-actions"><button type="button" id="googlePlace">Find on Google Maps ↗</button><button type="button" id="googleWalk">Walk in Google Maps ↗</button></div>
   <p class="place-explain" id="placeExplain">Search by English address, or tap a building on City Map. Approximate matches will be labelled.</p>
   <div class="city-fallback">City Map needs internet; some station coordinates still need verification. © OpenStreetMap contributors</div>
@@ -301,7 +301,7 @@ window.visualViewport?.addEventListener('scroll',alignOpenSuggestions);
 
 const routeOptions=document.getElementById('routeOptions');
 const detailsToggle=document.getElementById('detailsToggle'),detailsContent=document.getElementById('detailsContent');
-detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.12</span>'});
+detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.13</span>'});
 function options(el){const empty=document.createElement('option');empty.value='';empty.textContent='Select station / 選擇車站';el.append(empty);for(const name of allseq){const group=document.createElement('optgroup');group.label={red:'MRT Red',orange:'MRT Orange',lrt:'LRT Circular',tra:'TRA Urban'}[name];DATA[name].forEach(([id,en,zh])=>{let o=document.createElement('option');o.value=id;o.textContent=id+' · '+en+' / '+zh;group.appendChild(o)});el.append(group)}}
 options(from);options(to);
 let next='from';
@@ -709,7 +709,7 @@ function applyLanguage(nextLanguage){
  document.getElementById('walkRoute').textContent=t.walk;
  document.getElementById('walkClear').textContent=t.clear;
  const opened=!detailsContent.hidden;
- detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.12</span>';
+ detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.13</span>';
  for(const el of stationLabels){const st=stations.get(el.parentNode.dataset.id);if(st)el.textContent=st.id+' '+(lang==='zh'?st.zh:st.en)}
  // Recalculate fixed positions only when the language is changed, never on pan/zoom.
  fixedLabelPositions.clear();fixedLabelsReady=false;layoutMapLabelsOnce();render();
@@ -861,7 +861,7 @@ const placeInput=document.getElementById('placeSearch');
 const cityFrom=document.getElementById('cityFrom'),cityTo=document.getElementById('cityTo');
 // Offline MRT/LRT station centers and official TRA coordinates.
 // Geographic positions are never inferred from the schematic SVG.
-// v3.12: official station centers embedded from the two supplied government CSV files.
+// v3.13: official station centers embedded from the two supplied government CSV files.
 // LRT dataset 102183 (directional platforms C24-C31 averaged to one map marker).
 // MRT dataset 102187; RK1 extension dataset 171509; TRA official dataset 33425.
 // 11 urban TRA station GPS locations embedded from official downloaded JSON.
@@ -1261,6 +1261,72 @@ async function addressFetch(url, options={}){
  try {const r=await fetch(url,{...options,signal:controller.signal});if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}
  finally {clearTimeout(timer)}
 }
+// Official Kaohsiung doorplate coordinates, June 2026. Loaded only when a
+// user looks up an address; the 5.8 MB gzip file is NOT fetched with the map.
+// These are government doorplate locations, not promised building entrances.
+let officialAddressData=null,officialAddressLoading=null;
+const officialDistrictNames={
+ '6400100':'鹽埕區','6400200':'鼓山區','6400300':'左營區','6400400':'楠梓區',
+ '6400500':'三民區','6400600':'新興區','6400700':'前金區','6400800':'苓雅區',
+ '6400900':'前鎮區','6401000':'旗津區','6401100':'小港區','6401200':'鳳山區',
+ '6401300':'林園區','6401400':'大寮區','6401500':'大樹區','6401600':'大社區',
+ '6401700':'仁武區','6401800':'鳥松區','6401900':'岡山區','6402000':'橋頭區',
+ '6402100':'燕巢區','6402200':'田寮區','6402300':'阿蓮區','6402400':'路竹區',
+ '6402500':'湖內區','6402600':'茄萣區','6402700':'永安區','6402800':'彌陀區',
+ '6402900':'梓官區','6403000':'旗山區','6403100':'美濃區','6403200':'六龜區',
+ '6403300':'甲仙區','6403400':'杉林區','6403500':'內門區','6403600':'茂林區',
+ '6403700':'桃源區','6403800':'那瑪夏區'
+};
+function normalizeLocalAddress(t){
+ return String(t||'').normalize('NFKC').replace(/[\s,，、。]/g,'').replace(/^臺灣|^台灣/,'').replace(/^高雄市/,'');
+}
+function looksLikeStreetAddress(q){
+ return /(?:號|巷|弄|\b(?:no\.?|lane|ln\.?|alley)\b)/i.test(q) ||
+  /[\u3400-\u9fff].*(?:路|街)\s*\d+/u.test(q);
+}
+async function officialData(){
+ if(officialAddressData)return officialAddressData;
+ if(officialAddressLoading)return officialAddressLoading;
+ if(!('DecompressionStream' in window))throw Error('Browser does not support gzip decoding');
+ officialAddressLoading=(async()=>{
+  const r=await fetch('./kaohsiung_addresses_v313.json.gz',{cache:'force-cache'});
+  if(!r.ok)throw Error('Official address file not found: HTTP '+r.status);
+  if(!r.body)throw Error('No response stream');
+  const text=await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).text();
+  const data=JSON.parse(text);
+  if(data.v!==1||!Array.isArray(data.roads))throw Error('Invalid address index');
+  officialAddressData=data;
+  return data;
+ })();
+ try{return await officialAddressLoading}
+ finally{officialAddressLoading=null}
+}
+function officialAddressMatches(data,query){
+ const q=normalizeLocalAddress(query);
+ // A number is required for an exact house match. Street-only searches are
+ // left to OSM rather than presenting an arbitrary building as a location.
+ const numberMatch=q.match(/(\d+(?:之\d+)?號)(?:.*)?$/);
+ const targetHouse=numberMatch?.[1]||null;
+ const targetLane=q.match(/(\d+巷)/)?.[1]||'';
+ const targetAlley=q.match(/(\d+弄)/)?.[1]||'';
+ const results=[];
+ for(const [district,road,area,houses] of data.roads){
+  // Prefer full street names, including 林森一路 vs 林森二路.
+  if(!q.includes(road)|| (area&&!q.includes(area)))continue;
+  const districtName=officialDistrictNames[district]||'';
+  // Detect a different explicit district, but allow no district at all.
+  if(Object.values(officialDistrictNames).some(d=>q.includes(d))&& !q.includes(districtName))continue;
+  for(const [lane,alley,house,lat,lon] of houses){
+   if(lane!==targetLane || alley!==targetAlley)continue;
+   if(targetHouse && house!==targetHouse)continue;
+   if(!targetHouse)continue;
+   const label='高雄市'+districtName+road+area+lane+alley+house;
+   results.push({lat,lon,label,source:'高雄市門牌資料 · 2026-06',props:{housenumber:house,street:road},official:true});
+   if(results.length>=12)return results;
+  }
+ }
+ return results;
+}
 let searchingPlace=false;
 async function searchPlace(){
  const query=normalizedTaiwanAddress(placeInput.value);
@@ -1275,7 +1341,18 @@ async function searchPlace(){
  walkNote('Searching for this address…','正在搜尋地址…');
  const key=query.toLowerCase();let results=geoCache.get(key),failedSources=0,sourceNote='';
  try{
-  if(!results){
+  // First consult our complete official address index (independent of OSM).
+  // If missing or unavailable, keep the original Photon/Nominatim fallback.
+  if(!results && looksLikeStreetAddress(query)){
+   try{
+    walkNote('Checking official Kaohsiung address records…','正在查詢高雄市官方門牌資料…');
+    const data=await officialData();
+    results=officialAddressMatches(data,query);
+   }catch(err){console.warn('Official address index unavailable',err);
+    sourceNote='Official address data unavailable. ';results=[];
+   }
+  }
+  if(!results || !results.length){
    if(Date.now()-lastGeoRequestAt<1100){walkNote('Please retry in a moment.','請稍後重試。');return}
    lastGeoRequestAt=Date.now();results=[];
    try{
