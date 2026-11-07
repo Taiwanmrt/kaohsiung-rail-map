@@ -1289,7 +1289,7 @@ async function officialData(){
  if(officialAddressLoading)return officialAddressLoading;
  if(!('DecompressionStream' in window))throw Error('Browser does not support gzip decoding');
  officialAddressLoading=(async()=>{
-  const r=await fetch('./kaohsiung_addresses_v313.json.gz',{cache:'force-cache'});
+  const r=await fetch('./Kaohsiung_Addresses_v3_13_DOWNLOAD.json.gz',{cache:'force-cache'});
   if(!r.ok)throw Error('Official address file not found: HTTP '+r.status);
   if(!r.body)throw Error('No response stream');
   const text=await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).text();
