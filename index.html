@@ -150,7 +150,7 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 #map:not(.route-focus) .station{transition:opacity .2s ease}
 .city-pick-hint{margin:0;padding:5px 12px 7px;font-size:12px;color:var(--sub);background:var(--bg)}
 
-/* v3.17 compact pictograms and accessible help */
+/* v3.18 compact pictograms and accessible help */
 .icon-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;vertical-align:middle}
 .ui-icon{width:19px;height:19px;display:inline-block;flex:none;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #placeGo{width:46px;min-width:46px;padding:9px!important;display:inline-flex;align-items:center;justify-content:center}
@@ -174,7 +174,7 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 .help-chip{border-radius:7px;min-width:28px;height:28px;display:grid;place-items:center;color:#112033;font-weight:800;font-size:14px}
 .help-note{font-size:12px;line-height:1.55;color:#b6c8de;margin:12px 0 0}
 body.help-shown{overflow:hidden}
-</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.17</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.17</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button><button type="button" id="helpOpen" class="icon-btn" aria-label="Symbols and help" title="Symbols and help">?</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
+</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.18</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.18</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button><button type="button" id="helpOpen" class="icon-btn" aria-label="Symbols and help" title="Symbols and help">?</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
 <div class="city-search"><input id="placeSearch" type="search" placeholder="English address or place / 英文地址或地點" aria-label="Place to find"><button id="placeGo" type="button">Find</button></div>
 <div id="placeResults" class="city-results" aria-live="polite"></div>
 <p id="cityPickHint" class="city-pick-hint">Tap the map to choose an exact destination if the address is not found.</p><div class="city-walkbar city-walkbar-main"><button type="button" id="walkRoute">Show walking route</button><button type="button" id="walkClear">Clear walk</button></div><div id="walkStatus" class="city-status city-status-main" aria-live="polite">Tap a destination: walking directions will start from your selected station or the nearest mapped station.</div><div id="cityFrameSlot" class="city-large-map"></div>
@@ -326,7 +326,7 @@ window.visualViewport?.addEventListener('scroll',alignOpenSuggestions);
 
 const routeOptions=document.getElementById('routeOptions');
 const detailsToggle=document.getElementById('detailsToggle'),detailsContent=document.getElementById('detailsContent');
-detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.17</span>'});
+detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.18</span>'});
 function options(el){const empty=document.createElement('option');empty.value='';empty.textContent='Select station / 選擇車站';el.append(empty);for(const name of allseq){const group=document.createElement('optgroup');group.label={red:'MRT Red',orange:'MRT Orange',lrt:'LRT Circular',tra:'TRA Urban'}[name];DATA[name].forEach(([id,en,zh])=>{let o=document.createElement('option');o.value=id;o.textContent=id+' · '+en+' / '+zh;group.appendChild(o)});el.append(group)}}
 options(from);options(to);
 let next='from';
@@ -793,7 +793,7 @@ function applyLanguage(nextLanguage){
  setIconButton('walkRoute','walk',t.walk,false);
  setIconButton('walkClear','x',t.clear,true);
  const opened=!detailsContent.hidden;
- detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.17</span>';
+ detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.18</span>';
  for(const el of stationLabels){const st=stations.get(el.parentNode.dataset.id);if(st)el.textContent=st.id+' '+(lang==='zh'?st.zh:st.en)}
  // Recalculate fixed positions only when the language is changed, never on pan/zoom.
  fixedLabelPositions.clear();fixedLabelsReady=false;layoutMapLabelsOnce();render();
@@ -945,7 +945,7 @@ const placeInput=document.getElementById('placeSearch');
 const cityFrom=document.getElementById('cityFrom'),cityTo=document.getElementById('cityTo');
 // Offline MRT/LRT station centers and official TRA coordinates.
 // Geographic positions are never inferred from the schematic SVG.
-// v3.17: official station centers embedded from the two supplied government CSV files.
+// v3.18: official station centers embedded from the two supplied government CSV files.
 // LRT dataset 102183 (directional platforms C24-C31 averaged to one map marker).
 // MRT dataset 102187; RK1 extension dataset 171509; TRA official dataset 33425.
 // 11 urban TRA station GPS locations embedded from official downloaded JSON.
@@ -1250,34 +1250,36 @@ function choosePlace(coords,name){
 // Exact house and lane components matter in Taiwan; do not silently suggest a
 // different lane number as if it were the requested address.
 function addressParts(text){
- const t=String(text||'').toLowerCase().replace(/[，,]/g,' ');
- const lane=t.match(/(?:lane|ln\.?|巷)\s*(\d+)|(?:\d+)\s*巷/);
- const laneZh=t.match(/(\d+)\s*巷/);
- const house=t.match(/(?:no\.?|number|號|#)\s*(\d+)|(?:\d+)\s*號/);
- const houseZh=t.match(/(\d+)\s*號/);
- return {lane:lane?.[1]||laneZh?.[1]||null,house:house?.[1]||houseZh?.[1]||null};
+ // Accept Taiwan house/lane numbers in either English word order.
+ const t=String(text||'').normalize('NFKC').toLowerCase().replace(/[，,]/g,' ');
+ const lane=t.match(/\b(?:lane|ln\.?)\s*(\d+)\b/i) ||
+            t.match(/\b(\d+)\s*(?:lane|ln\.?)\b/i) ||
+            t.match(/(\d+)\s*巷/);
+ const house=t.match(/\b(?:no\.?|number|#)\s*(\d+)\b/i) ||
+             t.match(/(\d+)\s*號/);
+ return {lane:lane?.[1]||null,house:house?.[1]||null};
 }
 function assessMatch(query,label,props={}){
+ // A geocoder may return a nearby house on another road or lane, even with a
+ // matching number. Such results must NEVER be shown as confirmed addresses.
+ // Only a full record from our official city doorplate index is certified here.
+ if(props.__official===true)return {precise:true,explanation:'Official doorplate record'};
  const a=addressParts(query),b=addressParts([label,props.housenumber,props.street,props.name,props.display_name].filter(Boolean).join(' '));
- const badLane=!!a.lane&&a.lane!==b.lane;
- const badHouse=!!a.house&&a.house!==b.house;
- const precise=!(badLane||badHouse)&&(!a.lane||!!b.lane)&&(!a.house||!!b.house);
- return {precise,explanation:badLane?'Different lane number':badHouse?'Different house number':!precise?'Number not verified':'Matched address numbers'};
+ const badLane=!!a.lane && a.lane!==b.lane;
+ const badHouse=!!a.house && a.house!==b.house;
+ return {precise:false,explanation:badLane?'Different or unverified lane number':badHouse?'Different or unverified house number':'Address not verified in official database'};
 }
-// Search spelling variants, without manufacturing a point or claiming an exact match.
+// One verified English alias; never manufacture a coordinate or silently
+// substitute another street, lane or house number.
 function normalizedTaiwanAddress(input){
- let q=String(input||'').trim().replace(/\s+/g,' ');
- // One verified English↔Chinese street alias; NEVER substitute a different
- // lane or house number. Support "No 1", "1號", and "1, Lane 277".
+ let q=String(input||'').normalize('NFKC').trim().replace(/\s+/g,' ');
  if(/gangshan\s+south\s+(?:st(?:reet)?\.?)/i.test(q)){
-  const lane=q.match(/(?:lane|ln\.?)\s*(\d+)/i);
-  const beforeLane=q.split(/(?:lane|ln\.?)\s*\d+/i)[0];
-  const house=beforeLane.match(/(?:no\.?|number|#)\s*(\d+)/i)||
-   beforeLane.match(/(\d+)\s*號/)||
-   beforeLane.match(/(?:^|[,\s])\s*(\d+)\s*(?:[,，]|$)/);
-  if(lane&&house)return '高雄市前鎮區崗山南街'+lane[1]+'巷'+house[1]+'號';
+  const parsed=addressParts(q);
+  // Support both 'Lane 277' and '277 Lane', including 'No 1, 277 Lane'.
+  const house=parsed.house || q.match(/^\s*(\d+)\s*[,，]/)?.[1];
+  if(parsed.lane && house)return '高雄市前鎮區崗山南街'+parsed.lane+'巷'+house+'號';
  }
- if(/[\u3400-\u9fff]/.test(q) && /\d$/.test(q) && /巷\s*\d+$/.test(q))q+='號';
+ if(/[\u3400-\u9fff]/.test(q) && /巷\s*\d+$/.test(q))q+='號';
  return q;
 }
 function streetOnlySearch(text){
@@ -1328,7 +1330,7 @@ function insideKaohsiung(r){return Number.isFinite(r.lon)&&Number.isFinite(r.lat
 function renderPlaceResults(results,query){
  placeResults.replaceChildren();let exact=0;
  for(const r of results){
-  const check=assessMatch(query,r.label,r.props);
+  const check=assessMatch(query,r.label,{...r.props,__official:r.official===true});
   if(check.precise)exact++;
   const b=document.createElement('button');b.type='button';b.className=check.precise?'precise':'imprecise';
   b.textContent=(check.precise?'✓ ':'⚠ ')+r.label+' · '+r.source+(check.precise?'':' · Approximate ('+(r.source.includes('street only')?'Street-level result, not a house':check.explanation)+')');
@@ -1463,7 +1465,7 @@ async function searchPlace(){
     const url='https://photon.komoot.io/api/?'+new URLSearchParams({q:query,lat:'22.634',lon:'120.310',limit:'8',lang:lang==='zh'?'zh':'en'});
     results=geocodeResults('Photon',await addressFetch(url)).filter(insideKaohsiung);
    }catch(e){failedSources++;console.warn('Photon search unavailable',e);sourceNote='Photon unavailable. '}
-   if(!results.some(r=>assessMatch(query,r.label,r.props).precise)){
+   if(!results.some(r=>assessMatch(query,r.label,{...r.props,__official:r.official===true}).precise)){
     try{
      const url='https://nominatim.openstreetmap.org/search?'+new URLSearchParams({q:query,format:'jsonv2',addressdetails:'1',countrycodes:'tw',limit:'8',viewbox:'120.15,23.0,120.7,22.45',bounded:'1','accept-language':lang==='zh'?'zh-TW':'en'});
      const extra=geocodeResults('OSM Nominatim',await addressFetch(url,{headers:{Accept:'application/json'}})).filter(insideKaohsiung);
@@ -1473,7 +1475,7 @@ async function searchPlace(){
    }
    // Last fallback: try the street without the lane/house number. This gives
    // orientation only; do not present these locations as an exact address.
-   if(!results.some(r=>assessMatch(query,r.label,r.props).precise)){
+   if(!results.some(r=>assessMatch(query,r.label,{...r.props,__official:r.official===true}).precise)){
     const streetQuery=streetOnlySearch(query);
     if(streetQuery){
      try{
@@ -1493,15 +1495,15 @@ async function searchPlace(){
    walkNote(networkIssue?'Address lookup could not finish. Check your connection and retry on Wi-Fi.':'No matching address found in the open map data. Try the map or Google Maps.',
     networkIssue?'搜尋服務目前無法連線，請使用 Wi-Fi 重試。':'開放地圖資料找不到符合地址。可改用地圖選點。');
    placeExplain.textContent=lang==='zh'?'無結果。可重試搜尋、在地圖選點或使用 Google Maps。':
-    (networkIssue?'Search failed or timed out; this does not mean the address does not exist. Retry on Wi-Fi or use Google Maps.':'No exact address found. Try Google Maps or select a point on City Map.');
+    (networkIssue?'Search failed or timed out; this does not mean the address does not exist. Retry on Wi-Fi or use Google Maps.':'No exact address in the official data for this search. Check the lane number or select a point on City Map.');
    return;
   }
-  // v3.17: one unambiguous, verified house-number match needs no extra tap.
+  // v3.18: one unambiguous, verified house-number match needs no extra tap.
   // Preserve the choice list when multiple different exact addresses/locations
   // are returned, or when the service only found approximate street positions.
   const exactMatches=results.filter(r=>insideKaohsiung(r) &&
-   assessMatch(query,r.label,r.props).precise &&
-   (r.official || (addressParts(query).house && addressParts(r.label).house)));
+   assessMatch(query,r.label,{...r.props,__official:r.official===true}).precise &&
+   r.official===true);
   const locations=new Set(exactMatches.map(r=>r.lat.toFixed(5)+','+r.lon.toFixed(5)));
   if(exactMatches.length && locations.size===1){
    const match=exactMatches.find(r=>r.official)||exactMatches[0];
