@@ -103,13 +103,14 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 .geo-popup{color:#1a2431;font:13px system-ui,sans-serif;min-width:160px}.geo-popup strong{display:block;margin-bottom:6px}
 .geo-popup button{background:#235685;color:white;border:0;border-radius:7px;padding:8px;margin:3px 3px 0 0;font-size:12px}
 @media(max-width:800px){.city-view{height:min(155vw,840px);min-height:580px}.city-search button{white-space:nowrap}}
-/* v3.21: optional bus-stop layer, loaded only on demand. */
+/* v3.22: static TDX bus routes and stops, loaded only on demand. */
 #busToggle{background:#263850;border-color:#6780a2;min-height:37px;white-space:nowrap}
 #busToggle[aria-pressed="true"]{background:#56437a;border-color:#bc9cf5}
 .bus-stop-marker{width:14px;height:14px;border:2px solid #fff;background:#a78bfa;border-radius:4px;box-shadow:0 1px 5px #0009}
 .bus-popup{color:#172032;max-width:230px;font-size:13px;line-height:1.45}
 .bus-popup strong{display:block;margin-bottom:6px}
 .bus-popup small{display:block;margin-top:5px;color:#5d687a}
+.bus-popup-routes{max-height:180px;overflow:auto;display:flex;flex-direction:column;gap:3px;margin-top:6px}.bus-popup-routes button{font-size:11px;text-align:left;background:#e9e4ff;color:#30215d;border:1px solid #c8b6fc;border-radius:5px;padding:6px;line-height:1.35}
 .bus-progress{font-size:11px;color:#b7c8df;padding:0 11px 6px;line-height:1.4}
 .bus-progress[hidden]{display:none}
 /* v2.9: English address search; independent Google Maps fallback; precise-match alerts. */
@@ -183,7 +184,7 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 .help-chip{border-radius:7px;min-width:28px;height:28px;display:grid;place-items:center;color:#112033;font-weight:800;font-size:14px}
 .help-note{font-size:12px;line-height:1.55;color:#b6c8de;margin:12px 0 0}
 body.help-shown{overflow:hidden}
-</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.21</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.21</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button><button type="button" id="helpOpen" class="icon-btn" aria-label="Symbols and help" title="Symbols and help">?</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
+</style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.22</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.22</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button><button type="button" id="helpOpen" class="icon-btn" aria-label="Symbols and help" title="Symbols and help">?</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
 <div class="city-search"><input id="placeSearch" type="search" placeholder="English address or place / 英文地址或地點" aria-label="Place to find"><button id="placeGo" type="button">Find</button></div>
 <div id="placeResults" class="city-results" aria-live="polite"></div>
 <p id="cityPickHint" class="city-pick-hint">Tap the map to choose an exact destination if the address is not found.</p><div class="city-walkbar city-walkbar-main"><button type="button" id="walkRoute">Show walking route</button><button type="button" id="walkClear">Clear walk</button></div><div id="walkStatus" class="city-status city-status-main" aria-live="polite">Tap a destination: walking directions will start from your selected station or the nearest mapped station.</div><div id="cityFrameSlot" class="city-large-map"></div>
@@ -336,7 +337,7 @@ window.visualViewport?.addEventListener('scroll',alignOpenSuggestions);
 
 const routeOptions=document.getElementById('routeOptions');
 const detailsToggle=document.getElementById('detailsToggle'),detailsContent=document.getElementById('detailsContent');
-detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.21</span>'});
+detailsToggle.addEventListener('click',()=>{const opened=detailsContent.hidden;detailsContent.hidden=!opened;detailsToggle.setAttribute('aria-expanded',String(opened));detailsToggle.innerHTML=(opened?'Hide details / 隱藏詳細資訊 ▴':'Show details / 顯示詳細資訊 ▾')+' <span class="build-tag">v3.22</span>'});
 function options(el){const empty=document.createElement('option');empty.value='';empty.textContent='Select station / 選擇車站';el.append(empty);for(const name of allseq){const group=document.createElement('optgroup');group.label={red:'MRT Red',orange:'MRT Orange',lrt:'LRT Circular',tra:'TRA Urban'}[name];DATA[name].forEach(([id,en,zh])=>{let o=document.createElement('option');o.value=id;o.textContent=id+' · '+en+' / '+zh;group.appendChild(o)});el.append(group)}}
 options(from);options(to);
 let next='from';
@@ -804,7 +805,7 @@ function applyLanguage(nextLanguage){
  setIconButton('walkRoute','walk',t.walk,false);
  setIconButton('walkClear','x',t.clear,true);
  const opened=!detailsContent.hidden;
- detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.21</span>';
+ detailsToggle.innerHTML=(opened?(lang==='zh'?'隱藏詳細資訊 ▴':'Hide details ▴'):t.details+' ▾')+' <span class="build-tag">v3.22</span>';
  for(const el of stationLabels){const st=stations.get(el.parentNode.dataset.id);if(st)el.textContent=st.id+' '+(lang==='zh'?st.zh:st.en)}
  // Recalculate fixed positions only when the language is changed, never on pan/zoom.
  fixedLabelPositions.clear();fixedLabelsReady=false;layoutMapLabelsOnce();render();
@@ -1210,13 +1211,15 @@ async function initializeCity(){if(cityStatus!=='idle')return;cityStatus='loadin
   cityMap.on('click',e=>{if(e.originalEvent?.target?.closest?.('.station-pin'))return;choosePlace([e.latlng.lat,e.latlng.lng],lang==='zh'?'地圖上選取的地點':'Selected point on map')});
  }catch(e){console.warn('Geographic map unavailable',e);cityStatus='fallback';cityCount.textContent='Geographic map fallback';fallbackCity()}}
 
-// v3.21 bus stops: opt-in map layer, based on the TDX public GIS Kaohsiung
-// BusStopLayer (layer 7). This source supplies stops, not the bus services
-// through them. Never infer a route number from proximity to a bus line.
+// v3.22: TDX static bus routes, supplied as a compressed JSON snapshot.
+// No API key and no external GIS / Overpass requests are required for bus stops.
+// Straight segments between stops show only stop order, NOT road geometry.
 const busToggle=document.getElementById('busToggle');
 const busProgress=document.getElementById('busProgress');
-const BUS_GIS='https://gist-arcgis.transportdata.tw/server/rest/services/Hosted/BusStopLayer/FeatureServer/7/query';
-let busEnabled=false,busLayer=null,busAbort=null,busRequest=0,busTimer=null;
+const BUS_FILE='kaohsiung_bus_stopofroute_20261111.json.gz';
+let busEnabled=false,busLayer=null,busRouteLayer=null,busTimer=null;
+let busSnapshot=null,busPoints=[],busRoutes=new Map(),busLoading=null;
+let busSelectedRoute=null;
 function busText(en,zh){return lang==='zh'?zh:en}
 function updateBusLanguage(){
  if(!busToggle)return;
@@ -1225,119 +1228,109 @@ function updateBusLanguage(){
  busToggle.title=busText('Show or hide bus stops','顯示或隱藏公車站牌');
 }
 function busMessage(en,zh){busProgress.hidden=false;busProgress.textContent=busText(en,zh)}
-function clearBusRequest(){
- busRequest++;
- if(busTimer){clearTimeout(busTimer);busTimer=null}
- if(busAbort){busAbort.abort();busAbort=null}
+async function getBusSnapshot(){
+ if(busSnapshot)return busSnapshot;
+ if(busLoading)return busLoading;
+ busLoading=(async()=>{
+  const response=await fetch(BUS_FILE,{cache:'default'});
+  if(!response.ok)throw Error('Bus file HTTP '+response.status);
+  // GitHub Pages hosts .gz as a static binary: decompress explicitly.
+  // A gzip response that a host already expanded is also accepted.
+  const bytes=new Uint8Array(await response.arrayBuffer());
+  let content;
+  if(bytes[0]===0x1f&&bytes[1]===0x8b){
+   if(typeof DecompressionStream!=='function')throw Error('Browser has no gzip support');
+   content=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+  }else content=new TextDecoder().decode(bytes);
+  const payload=JSON.parse(content);
+  if(!payload||!Array.isArray(payload.routes))throw Error('Invalid TDX bus file');
+  const byStation=new Map();busRoutes=new Map();
+  payload.routes.forEach((r,index)=>{
+   const id=String(r.uid||r.id||index)+'|'+String(r.subUid||'')+'|'+String(r.direction??'');
+   busRoutes.set(id,r);
+   for(const st of r.stops||[]){
+    if(!Number.isFinite(st.lat)||!Number.isFinite(st.lon))continue;
+    // StationID identifies a physical platform shared by multiple routes.
+    // Fall back to exact coordinate when StationID is absent.
+    const key=st.stationId?('station:'+st.stationId):('pos:'+st.lat.toFixed(6)+','+st.lon.toFixed(6));
+    let stop=byStation.get(key);
+    if(!stop){stop={lat:st.lat,lon:st.lon,zh:st.zh||'',en:st.en||'',routes:new Set()};byStation.set(key,stop)}
+    stop.routes.add(id);
+   }
+  });
+  busPoints=[...byStation.values()];busSnapshot=payload;
+  return payload;
+ })();
+ try{return await busLoading}finally{busLoading=null}
+}
+function busRouteName(r){return (lang==='zh'?r.nameZh:r.nameEn)||r.nameZh||r.nameEn||r.id||'Bus'}
+function busDirection(r){return (r.stops?.length)?((lang==='zh'?'往 ':'To ')+((lang==='zh'?r.stops.at(-1).zh:r.stops.at(-1).en)||r.stops.at(-1).zh||'')):''}
+function showBusRoute(key){
+ const r=busRoutes.get(key);if(!r||!cityMap)return;
+ if(busRouteLayer)busRouteLayer.remove();
+ busSelectedRoute=key;
+ const pts=(r.stops||[]).filter(st=>Number.isFinite(st.lat)&&Number.isFinite(st.lon)).map(st=>[st.lat,st.lon]);
+ if(!pts.length)return;
+ // This line connects successive STOP positions only; it is not a street path.
+ busRouteLayer=L.polyline(pts,{color:'#7c3aed',weight:4,opacity:.85,dashArray:'7 7',interactive:false}).addTo(cityMap);
+ const bounds=busRouteLayer.getBounds();if(bounds.isValid())cityMap.fitBounds(bounds.pad(.08),{maxZoom:15});
+ busMessage(busRouteName(r)+' · '+busDirection(r)+' · '+pts.length+' stops · dotted line = approximate stop order',
+  busRouteName(r)+' · '+busDirection(r)+' · '+pts.length+' 站 · 虛線僅表示站點順序');
+}
+function makeBusPopup(stop){
+ const popup=document.createElement('div');popup.className='bus-popup';
+ const title=document.createElement('strong');title.textContent=(lang==='zh'?stop.zh:stop.en)||stop.zh||stop.en||busText('Bus stop','公車站');popup.append(title);
+ const secondary=(lang==='zh'?stop.en:stop.zh);if(secondary){const sub=document.createElement('div');sub.textContent=secondary;popup.append(sub)}
+ const routes=[...stop.routes].map(key=>({key,r:busRoutes.get(key)})).filter(x=>x.r);
+ routes.sort((a,b)=>String(a.r.nameZh||a.r.id).localeCompare(String(b.r.nameZh||b.r.id),undefined,{numeric:true}));
+ const subtitle=document.createElement('small');subtitle.textContent=busText(routes.length+' route directions · select to show stops',routes.length+' 個路線方向 · 點選查看站序');popup.append(subtitle);
+ const choices=document.createElement('div');choices.className='bus-popup-routes';
+ function appendChoices(limit){choices.replaceChildren();for(const {key,r} of routes.slice(0,limit)){
+  const b=document.createElement('button');b.type='button';b.textContent=busRouteName(r)+' · '+busDirection(r);
+  b.addEventListener('click',()=>{cityMap.closePopup();showBusRoute(key)});choices.append(b);
+ }
+ if(routes.length>limit){const more=document.createElement('button');more.type='button';more.textContent=busText('Show all '+routes.length,'顯示全部 '+routes.length);more.addEventListener('click',()=>appendChoices(routes.length));choices.append(more)}
+ }
+ appendChoices(12);popup.append(choices);
+ const note=document.createElement('small');note.textContent=busText('TDX snapshot 11 Nov 2026 · no live bus arrival times or schedules','TDX 2026/11/11 靜態資料 · 無即時到站及班次時間');popup.append(note);
+ return popup;
 }
 function scheduleBusStops(){
  if(!busEnabled||!cityMap||cityStatus!=='ready')return;
  if(busTimer)clearTimeout(busTimer);
- busTimer=setTimeout(()=>{busTimer=null;void loadBusStops()},350);
+ busTimer=setTimeout(()=>{busTimer=null;void loadBusStops()},180);
 }
 async function loadBusStops(){
  if(!busEnabled||!cityMap)return;
- clearBusRequest();
- const request=busRequest;
  if(!busLayer)busLayer=L.layerGroup().addTo(cityMap);
- busLayer.clearLayers();
- if(cityMap.getZoom()<14){
-  busMessage('Zoom in to level 14 to see bus stops.','請放大至14級以查看公車站牌。');return;
+ if(!busSnapshot){
+  busMessage('Loading TDX bus database…','正在載入 TDX 公車資料…');
+  try{await getBusSnapshot()}catch(e){console.warn('Bus database unavailable',e);if(busEnabled)busMessage('Cannot load bus database. Check that the .json.gz file is next to index.html.','無法載入公車資料，請確認 .json.gz 檔案與 index.html 在同一資料夾。');return}
  }
- const b=cityMap.getBounds();
- const south=Math.max(22.42,b.getSouth()),north=Math.min(23.33,b.getNorth());
- const west=Math.max(120.15,b.getWest()),east=Math.min(120.9,b.getEast());
- if(south>=north||west>=east){busMessage('Outside the Kaohsiung bus coverage area.','超出高雄公車資料範圍。');return;}
- // Request only visible geographic bounds, no API key or user data.
- const query=new URLSearchParams({
-  where:'1=1', geometry:[west,south,east,north].join(','),
-  geometryType:'esriGeometryEnvelope',inSR:'4326',spatialRel:'esriSpatialRelIntersects',
-  outFields:'stopname,stopnameen,stopaddres,stopuid',
-  outSR:'4326',returnGeometry:'true',resultRecordCount:'500',f:'geojson'
- });
- const controller=new AbortController();busAbort=controller;
- const timeout=setTimeout(()=>controller.abort(),13000);
- busMessage('Loading nearby bus stops…','正在載入附近公車站牌…');
- try{
-  const response=await fetch(BUS_GIS+'?'+query.toString(),{signal:controller.signal});
-  if(!response.ok)throw new Error('HTTP '+response.status);
-  const data=await response.json();
-  if(data.error)throw Error(data.error.message||'GIS error');
-  if(request!==busRequest||!busEnabled)return;
-  if(!Array.isArray(data.features))throw Error('Invalid bus response');
-  const markerIcon=L.divIcon({className:'',html:'<div class="bus-stop-marker"></div>',iconSize:[14,14],iconAnchor:[7,7]});
-  let shown=0;
-  for(const f of data.features){
-   if(f.geometry?.type!=='Point'||!Array.isArray(f.geometry.coordinates))continue;
-   const [lon,lat]=f.geometry.coordinates;const a=f.properties||{};
-   if(!Number.isFinite(lat)||!Number.isFinite(lon))continue;
-   const marker=L.marker([lat,lon],{icon:markerIcon,title:(a.stopnameen||a.stopname||'Bus stop')});
-   marker.on('click',()=>{
-    const popup=document.createElement('div');popup.className='bus-popup';
-    const title=document.createElement('strong');title.textContent=(lang==='zh'?a.stopname:a.stopnameen)||a.stopname||a.stopnameen||busText('Bus stop','公車站');popup.append(title);
-    if(a.stopname&&a.stopnameen&&a.stopname!==a.stopnameen){const sub=document.createElement('div');sub.textContent=(lang==='zh'?a.stopnameen:a.stopname);popup.append(sub)}
-    if(a.stopaddres){const address=document.createElement('div');address.textContent=a.stopaddres;popup.append(address)}
-    const note=document.createElement('small');note.textContent=busText('Route numbers not yet available in this layer. Verify buses before travelling.','此圖層尚無公車路線號碼，搭乘前請查詢官方資訊。');popup.append(note);
-    marker.bindPopup(popup).openPopup();
-   });
-   busLayer.addLayer(marker);shown++;
-  }
-  busMessage(shown+' bus-stop points in this view'+(shown>=500?' · zoom in for a more complete view':''),
-    '目前地圖顯示 '+shown+' 個公車站牌'+(shown>=500?'，請放大以查看更完整的範圍':''));
- }catch(e){
-  if(request!==busRequest||!busEnabled)return;
-  console.warn('TDX bus-stop layer unavailable; trying OpenStreetMap',e);
-  busMessage('TDX unavailable — checking OpenStreetMap bus stops…','TDX 暫時無法使用，正在查詢 OpenStreetMap 公車站牌…');
-  try{
-   // Small, user-requested bounding-box query only. No secret API credentials.
-   // Both public Overpass endpoints may rate-limit; never claim all stops are included.
-   const bb=[south,west,north,east].map(v=>v.toFixed(6)).join(',');
-   const q='[out:json][timeout:14];(node["highway"="bus_stop"]('+bb+');node["public_transport"="platform"]["bus"="yes"]('+bb+'););out body;';
-   let osm=null,lastError=null;
-   for(const endpoint of ['https://overpass.kumi.systems/api/interpreter','https://overpass-api.de/api/interpreter']){
-    if(request!==busRequest||!busEnabled)return;
-    const fallbackController=new AbortController();
-    const fallbackTimeout=setTimeout(()=>fallbackController.abort(),10500);
-    try{
-     const r=await fetch(endpoint,{method:'POST',body:new URLSearchParams({data:q}),signal:fallbackController.signal});
-     if(!r.ok)throw Error('HTTP '+r.status);
-     osm=await r.json();
-     if(!Array.isArray(osm.elements))throw Error('Invalid OSM response');
-     break;
-    }catch(err){lastError=err}
-    finally{clearTimeout(fallbackTimeout)}
-   }
-   if(request!==busRequest||!busEnabled)return;
-   if(!osm)throw lastError||Error('No OSM response');
-   const markerIcon=L.divIcon({className:'',html:'<div class="bus-stop-marker"></div>',iconSize:[14,14],iconAnchor:[7,7]});
-   const seen=new Set();let shown=0;
-   for(const el of osm.elements){
-    if(!Number.isFinite(el.lat)||!Number.isFinite(el.lon)||seen.has(el.id))continue;
-    seen.add(el.id);if(shown>=500)break;
-    const tags=el.tags||{};
-    const en=tags['name:en']||'',zh=tags['name:zh']||tags.name||'';
-    const title=(lang==='zh'?zh:en)||zh||en||busText('Bus stop','公車站');
-    const marker=L.marker([el.lat,el.lon],{icon:markerIcon,title});
-    marker.on('click',()=>{
-     const popup=document.createElement('div');popup.className='bus-popup';
-     const name=document.createElement('strong');name.textContent=title;popup.append(name);
-     if(en&&zh&&en!==zh){const other=document.createElement('div');other.textContent=lang==='zh'?en:zh;popup.append(other)}
-     const note=document.createElement('small');note.textContent=busText('OpenStreetMap stop · bus routes not verified','OpenStreetMap 站牌 · 路線號碼尚未核實');popup.append(note);
-     marker.bindPopup(popup).openPopup();
-    });busLayer.addLayer(marker);shown++;
-   }
-   busMessage(shown+' OpenStreetMap bus stops nearby'+(shown===500?' (showing first 500)':'')+' · routes not yet included',
-    '附近 '+shown+' 個 OpenStreetMap 公車站牌'+(shown===500?'（僅顯示前500個）':'')+' · 尚未包含公車路線');
-  }catch(osmError){
-   if(request!==busRequest||!busEnabled)return;
-   busMessage('Bus stops could not load from TDX or OpenStreetMap. Check connection and retry.','無法從 TDX 或 OpenStreetMap 載入站牌，請檢查網路並重試。');
-   console.warn('OSM bus-stop fallback unavailable',osmError);
-  }
- }finally{clearTimeout(timeout);if(busAbort===controller)busAbort=null}
+ if(!busEnabled||!cityMap)return;
+ busLayer.clearLayers();
+ if(cityMap.getZoom()<14){busMessage(busText('Zoom to level 14 to see bus stops.','請放大至14級以查看公車站牌。'),busText('Zoom to level 14 to see bus stops.','請放大至14級以查看公車站牌。'));return}
+ const bounds=cityMap.getBounds();const icon=L.divIcon({className:'',html:'<div class="bus-stop-marker"></div>',iconSize:[14,14],iconAnchor:[7,7]});
+ let shown=0,available=0;
+ for(const stop of busPoints){
+  if(!bounds.contains([stop.lat,stop.lon]))continue;
+  available++;
+  if(shown>=500)continue;
+  const marker=L.marker([stop.lat,stop.lon],{icon,title:(lang==='zh'?stop.zh:stop.en)||stop.zh});
+  marker.on('click',()=>marker.bindPopup(makeBusPopup(stop),{maxHeight:320,maxWidth:270}).openPopup());
+  busLayer.addLayer(marker);shown++;
+ }
+ if(busSelectedRoute&&busRouteLayer){
+  const r=busRoutes.get(busSelectedRoute);
+  busMessage(busRouteName(r)+' · '+busDirection(r)+' · dotted line = approximate stop order',busRouteName(r)+' · '+busDirection(r)+' · 虛線僅表示站點順序');
+ }else{
+  busMessage(shown+' bus stops visible'+(available>shown?' · zoom in for more':'')+' · '+busSnapshot.routes.length+' route directions in database',
+   '地圖顯示 '+shown+' 個站牌'+(available>shown?' · 請放大以查看更多':'')+' · 資料庫共 '+busSnapshot.routes.length+' 個路線方向');
+ }
 }
 busToggle.addEventListener('click',()=>{
  busEnabled=!busEnabled;busToggle.setAttribute('aria-pressed',String(busEnabled));
- if(!busEnabled){clearBusRequest();if(busLayer)busLayer.clearLayers();busProgress.hidden=true;return;}
+ if(!busEnabled){if(busTimer){clearTimeout(busTimer);busTimer=null}if(busLayer)busLayer.clearLayers();if(busRouteLayer){busRouteLayer.remove();busRouteLayer=null}busSelectedRoute=null;busProgress.hidden=true;return}
  if(cityStatus==='ready'&&cityMap){if(!busLayer)busLayer=L.layerGroup().addTo(cityMap);scheduleBusStops()}
  else busMessage('Waiting for City Map…','正在等待城市地圖…');
 });
