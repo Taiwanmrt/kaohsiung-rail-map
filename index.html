@@ -160,7 +160,7 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 #map:not(.route-focus) .station{transition:opacity .2s ease}
 .city-pick-hint{margin:0;padding:5px 12px 7px;font-size:12px;color:var(--sub);background:var(--bg)}
 
-/* v3.21 compact pictograms and accessible help */
+/* v3.23 compact pictograms and accessible help */
 .icon-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;vertical-align:middle}
 .ui-icon{width:19px;height:19px;display:inline-block;flex:none;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #placeGo{width:46px;min-width:46px;padding:9px!important;display:inline-flex;align-items:center;justify-content:center}
@@ -184,12 +184,20 @@ html,body{touch-action:pan-y;overscroll-behavior-x:none}header,.panel,footer{tou
 .help-chip{border-radius:7px;min-width:28px;height:28px;display:grid;place-items:center;color:#112033;font-weight:800;font-size:14px}
 .help-note{font-size:12px;line-height:1.55;color:#b6c8de;margin:12px 0 0}
 body.help-shown{overflow:hidden}
+
+/* v3.23 mixed transport trip result and highlighted bus stops */
+.bus-route-stop{width:17px;height:17px;border-radius:50%;background:#f2dfff;border:3px solid #8135e5;box-shadow:0 0 0 2px white,0 2px 7px #0008}
+.bus-route-stop.terminal{width:22px;height:22px;border-color:#fff;background:#8135e5;box-shadow:0 0 0 3px #8135e5,0 2px 7px #0008}
+#mixedRoute{background:#27415e;border-color:#6084a8;min-height:37px;white-space:nowrap}
+.mixed-results{margin:7px 10px 12px;padding:11px;border-radius:11px;background:#203149;border:1px solid #56718c;font-size:12px;line-height:1.6;color:#e2ecfb}
+.mixed-results[hidden]{display:none!important}.mixed-results strong{font-size:13px}.mixed-results .leg{padding:7px 0;border-bottom:1px solid #435772}.mixed-results .leg:last-child{border:0}
+.mixed-results .muted-line{color:#a9bfd8;font-size:11px}.mixed-results button{margin-top:7px;font-size:11px;padding:7px 10px}
 </style></head><body><header><h1>Kaohsiung Rail Map <span style="font-size:11px;color:#9db4cf;font-weight:500">Prototype 3.22</span></h1><p class="muted">Tap two stations. See your route directly on the diagram. / 點選兩個車站，查看路線。</p></header><main class="app"><aside class="panel"><div class="lang-switch" aria-label="Language"><button id="langEn" aria-pressed="true" type="button">English</button><button id="langZh" aria-pressed="false" type="button">繁體中文</button></div><div class="field"><label class="label" for="from">FROM / 起點</label><input id="fromSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="From station" aria-expanded="false" aria-controls="fromSuggestions"><button type="button" class="station-list-toggle" id="fromListToggle" aria-label="Show all departure stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="fromSuggestions" hidden></div><select id="from" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="field"><label class="label" for="to">TO / 終點</label><input id="toSearch" class="search" type="search" placeholder="Search or choose station / 搜尋或選擇車站" autocomplete="off" aria-label="To station" aria-expanded="false" aria-controls="toSuggestions"><button type="button" class="station-list-toggle" id="toListToggle" aria-label="Show all destination stations" title="All stations / 所有車站">▾</button><div class="suggestions" id="toSuggestions" hidden></div><select id="to" class="original-select" aria-hidden="true" tabindex="-1"></select></div><div class="actions"><button class="primary" id="go">Show route / 顯示路線</button><button id="swap" title="Swap stations">⇅</button><button id="clear" title="Clear">✕</button></div><div id="routeOptions" class="route-options" hidden aria-label="Alternative routes"></div><button class="details-toggle" id="detailsToggle" aria-expanded="false" aria-controls="detailsContent">Show details / 顯示詳細資訊 ▾ <span class="build-tag">v3.22</span></button><div class="details-content" id="detailsContent" hidden><div class="legend"><span class="pill" style="color:var(--red)">● MRT Red</span><span class="pill" style="color:var(--orange)">● MRT Orange</span><span class="pill" style="color:var(--lrt)">● LRT</span><span class="pill" style="color:var(--tra)">● TRA</span></div><section id="result" class="result" aria-live="polite"><h3>Choose two stations</h3><p>Tap a station on the map to select the starting point, then the destination. Or use the menus.</p></section><div class="notice">⚠ This is an <b>experimental schematic</b>, not a live journey planner. TRA services may skip stations; walking connections may involve a street-level walk; R8–C8 distance is unverified. TRA station order is schematic and not every service stops at every station. Only O7/O8 ↔ C32 have a confirmed approximate walking distance (~500 m). No live schedules, fares, or full journey times are included. Check real services before travelling.</div><p class="small">Tip: drag the map to pan and use + / − to zoom. Touch-friendly station targets are larger than the visible circles.</p></div></aside><section class="mapPanel"><nav class="mode-switch" aria-label="Map mode / 地圖模式"><button type="button" id="railMode" aria-pressed="true">Rail Map / 路線圖</button><button type="button" id="cityMode" aria-pressed="false">City Map / 城市地圖</button><button type="button" id="helpOpen" class="icon-btn" aria-label="Symbols and help" title="Symbols and help">?</button></nav><div class="toolbar"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomOut" aria-label="Zoom out">－</button><button id="reset" aria-label="Reset map zoom and position" title="Reset map zoom and position">↺ Fit</button></div><div id="mapwrap" class="mapwrap"><svg id="map" viewBox="0 0 1100 1140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic diagram of Kaohsiung MRT, LRT and urban TRA"><rect class="mapBg" x="-2000" y="-2000" width="5000" height="5000"/><g id="lines"></g><g id="walks"></g><g id="routes"></g><g id="stations"></g></svg><div class="tip">Schematic only · Locations approximate · not to scale · 示意路網圖</div></div><div class="city-view" id="cityView" hidden>
 <div class="city-search"><input id="placeSearch" type="search" placeholder="English address or place / 英文地址或地點" aria-label="Place to find"><button id="placeGo" type="button">Find</button></div>
 <div id="placeResults" class="city-results" aria-live="polite"></div>
 <p id="cityPickHint" class="city-pick-hint">Tap the map to choose an exact destination if the address is not found.</p><div class="city-walkbar city-walkbar-main"><button type="button" id="walkRoute">Show walking route</button><button type="button" id="walkClear">Clear walk</button></div><div id="walkStatus" class="city-status city-status-main" aria-live="polite">Tap a destination: walking directions will start from your selected station or the nearest mapped station.</div><div id="cityFrameSlot" class="city-large-map"></div>
-<div id="busProgress" class="bus-progress" hidden aria-live="polite"></div>
-<div class="city-quick"><button type="button" id="cityFrom" hidden>Show departure</button><button type="button" id="cityTo" hidden>Show destination</button><button type="button" id="busToggle" aria-pressed="false" title="Show bus stops / 顯示公車站" aria-label="Show bus stops">🚌 Bus</button><span id="cityCount">M · MRT　T · TRA　L · LRT</span><button type="button" id="retryStations" hidden title="Retry station data">↻ Stations</button></div>
+<div id="busProgress" class="bus-progress" hidden aria-live="polite"></div><div id="mixedResults" class="mixed-results" hidden aria-live="polite"></div>
+<div class="city-quick"><button type="button" id="cityFrom" hidden>Show departure</button><button type="button" id="cityTo" hidden>Show destination</button><button type="button" id="busToggle" aria-pressed="false" title="Show bus stops / 顯示公車站" aria-label="Show bus stops">🚌 Bus</button><button type="button" id="mixedRoute" title="Find a bus + rail route / 公車與軌道轉乘">Bus + rail route</button><span id="cityCount">M · MRT　T · TRA　L · LRT</span><button type="button" id="retryStations" hidden title="Retry station data">↻ Stations</button></div>
 <details class="city-more" id="cityMore"><summary>More options / 更多選項</summary>
   <div class="city-header"><p class="city-note">Select a point on the map or search in English. All 88 station coordinates are built in from published data. The official Kaohsiung address index loads only when you search a street address. Tap ↻ Stations only for optional extra data.</p><a href="https://www.openstreetmap.org/search?query=Kaohsiung" target="_blank" rel="noopener noreferrer" id="osmSearchLink">Search on OpenStreetMap ↗</a></div>
   <div class="place-actions"><button type="button" id="googlePlace">Find on Google Maps ↗</button><button type="button" id="googleWalk">Walk in Google Maps ↗</button></div>
@@ -957,7 +965,7 @@ const placeInput=document.getElementById('placeSearch');
 const cityFrom=document.getElementById('cityFrom'),cityTo=document.getElementById('cityTo');
 // Offline MRT/LRT station centers and official TRA coordinates.
 // Geographic positions are never inferred from the schematic SVG.
-// v3.21: official station centers embedded from the two supplied government CSV files.
+// v3.23: official station centers embedded from the two supplied government CSV files.
 // LRT dataset 102183 (directional platforms C24-C31 averaged to one map marker).
 // MRT dataset 102187; RK1 extension dataset 171509; TRA official dataset 33425.
 // 11 urban TRA station GPS locations embedded from official downloaded JSON.
@@ -1217,8 +1225,8 @@ async function initializeCity(){if(cityStatus!=='idle')return;cityStatus='loadin
 const busToggle=document.getElementById('busToggle');
 const busProgress=document.getElementById('busProgress');
 const BUS_FILE='kaohsiung_bus_stopofroute_20261111.json.gz';
-let busEnabled=false,busLayer=null,busRouteLayer=null,busTimer=null;
-let busSnapshot=null,busPoints=[],busRoutes=new Map(),busLoading=null;
+let busEnabled=false,busLayer=null,busRouteLayer=null,busRouteStopsLayer=null,busTimer=null;
+let busSnapshot=null,busPoints=[],busRoutes=new Map(),busLoading=null,busByStation=new Map();
 let busSelectedRoute=null;
 function busText(en,zh){return lang==='zh'?zh:en}
 function updateBusLanguage(){
@@ -1226,6 +1234,7 @@ function updateBusLanguage(){
  busToggle.textContent=busText('🚌 Bus','🚌 公車');
  busToggle.setAttribute('aria-label',busText('Show or hide bus stops','顯示或隱藏公車站牌'));
  busToggle.title=busText('Show or hide bus stops','顯示或隱藏公車站牌');
+ document.getElementById('mixedRoute').textContent=busText('Bus + rail route','公車＋軌道路線');
 }
 function busMessage(en,zh){busProgress.hidden=false;busProgress.textContent=busText(en,zh)}
 async function getBusSnapshot(){
@@ -1258,7 +1267,7 @@ async function getBusSnapshot(){
     stop.routes.add(id);
    }
   });
-  busPoints=[...byStation.values()];busSnapshot=payload;
+  busByStation=byStation;busPoints=[...byStation.values()];busSnapshot=payload;
   return payload;
  })();
  try{return await busLoading}finally{busLoading=null}
@@ -1273,6 +1282,19 @@ function showBusRoute(key){
  if(!pts.length)return;
  // This line connects successive STOP positions only; it is not a street path.
  busRouteLayer=L.polyline(pts,{color:'#7c3aed',weight:4,opacity:.85,dashArray:'7 7',interactive:false}).addTo(cityMap);
+ // Selected route stops remain visible and clickable at ANY zoom level.
+ if(busRouteStopsLayer)busRouteStopsLayer.remove();
+ busRouteStopsLayer=L.layerGroup().addTo(cityMap);
+ (r.stops||[]).filter(st=>Number.isFinite(st.lat)&&Number.isFinite(st.lon)).forEach((st,i,arr)=>{
+  const terminal=i===0||i===arr.length-1;
+  const icon=L.divIcon({className:'',html:'<div class="bus-route-stop'+(terminal?' terminal':'')+'"></div>',iconSize:terminal?[22,22]:[17,17],iconAnchor:terminal?[11,11]:[8,8]});
+  const marker=L.marker([st.lat,st.lon],{icon,zIndexOffset:1500,title:(i+1)+'. '+((lang==='zh'?st.zh:st.en)||st.zh||'')});
+  const body=document.createElement('div');body.className='bus-popup';
+  const h=document.createElement('strong');h.textContent=(i+1)+'. '+((lang==='zh'?st.zh:st.en)||st.zh||st.en||'');body.append(h);
+  const secondary=document.createElement('div');secondary.textContent=(lang==='zh'?st.en:st.zh)||'';body.append(secondary);
+  const sub=document.createElement('small');sub.textContent=busRouteName(r)+' · '+busDirection(r);body.append(sub);
+  marker.bindPopup(body,{maxWidth:260});busRouteStopsLayer.addLayer(marker);
+ });
  const bounds=busRouteLayer.getBounds();if(bounds.isValid())cityMap.fitBounds(bounds.pad(.08),{maxZoom:15});
  busMessage(busRouteName(r)+' · '+busDirection(r)+' · '+pts.length+' stops · dotted line = approximate stop order',
   busRouteName(r)+' · '+busDirection(r)+' · '+pts.length+' 站 · 虛線僅表示站點順序');
@@ -1309,7 +1331,7 @@ async function loadBusStops(){
  }
  if(!busEnabled||!cityMap)return;
  busLayer.clearLayers();
- if(cityMap.getZoom()<14){busMessage(busText('Zoom to level 14 to see bus stops.','請放大至14級以查看公車站牌。'),busText('Zoom to level 14 to see bus stops.','請放大至14級以查看公車站牌。'));return}
+ if(cityMap.getZoom()<14){if(!busSelectedRoute)busMessage('Zoom to level 14 to see nearby bus stops.','請放大至14級以查看附近站牌。');return}
  const bounds=cityMap.getBounds();const icon=L.divIcon({className:'',html:'<div class="bus-stop-marker"></div>',iconSize:[14,14],iconAnchor:[7,7]});
  let shown=0,available=0;
  for(const stop of busPoints){
@@ -1330,11 +1352,79 @@ async function loadBusStops(){
 }
 busToggle.addEventListener('click',()=>{
  busEnabled=!busEnabled;busToggle.setAttribute('aria-pressed',String(busEnabled));
- if(!busEnabled){if(busTimer){clearTimeout(busTimer);busTimer=null}if(busLayer)busLayer.clearLayers();if(busRouteLayer){busRouteLayer.remove();busRouteLayer=null}busSelectedRoute=null;busProgress.hidden=true;return}
+ if(!busEnabled){if(busTimer){clearTimeout(busTimer);busTimer=null}if(busLayer)busLayer.clearLayers();if(busRouteLayer){busRouteLayer.remove();busRouteLayer=null}if(busRouteStopsLayer){busRouteStopsLayer.remove();busRouteStopsLayer=null}busSelectedRoute=null;busProgress.hidden=true;return}
  if(cityStatus==='ready'&&cityMap){if(!busLayer)busLayer=L.layerGroup().addTo(cityMap);scheduleBusStops()}
  else busMessage('Waiting for City Map…','正在等待城市地圖…');
 });
 updateBusLanguage();
+// Experimental combined network: static bus stop order + MRT/LRT/TRA topology.
+// Estimated edge costs are ROUTING WEIGHTS, never arrival times or a timetable.
+const mixedBtn=document.getElementById('mixedRoute'),mixedResults=document.getElementById('mixedResults');
+let mixedLayer=null,mixedGraph=null;
+function geoMeters(a,b){const rad=Math.PI/180,lat=(a[0]+b[0])*rad/2;const x=(b[1]-a[1])*rad*Math.cos(lat),y=(b[0]-a[0])*rad;return Math.sqrt(x*x+y*y)*6371000*rad}
+function mixGridKey(lat,lon){return Math.floor(lat/.0015)+','+Math.floor(lon/.0015)}
+function makeMixedGraph(){
+ if(mixedGraph)return mixedGraph;
+ const nodes=new Map(),adj=new Map(),grid=new Map();
+ function node(id,lat,lon,en,zh){nodes.set(id,{id,lat,lon,en,zh});if(!adj.has(id))adj.set(id,[]);return id}
+ function edge(a,b,kind,service,weight,both=false){if(!nodes.has(a)||!nodes.has(b)||a===b)return;adj.get(a).push({to:b,kind,service,weight});if(both)adj.get(b).push({to:a,kind,service,weight})}
+ for(const [id,coord] of Object.entries(GEO)){const st=stations.get(id);if(st)node('r:'+id,coord[0],coord[1],id+' · '+st.en,id+' · '+st.zh)}
+ for(const [key,st] of busByStation){const id='b:'+key;node(id,st.lat,st.lon,st.en||st.zh,st.zh||st.en);const g=mixGridKey(st.lat,st.lon);if(!grid.has(g))grid.set(g,[]);grid.get(g).push(id)}
+ for(const [key,r] of busRoutes){let prev=null;for(const st of r.stops||[]){if(!Number.isFinite(st.lat)||!Number.isFinite(st.lon))continue;const sk=st.stationId?'station:'+st.stationId:'pos:'+st.lat.toFixed(6)+','+st.lon.toFixed(6);const id='b:'+sk;if(prev&&nodes.has(id)&&nodes.has(prev)){const a=nodes.get(prev),b=nodes.get(id),dist=geoMeters([a.lat,a.lon],[b.lat,b.lon]);edge(prev,id,'bus',key,Math.max(1.3,dist/380+0.7))}prev=id}}
+ for(const [id,neighbors] of edges){const a='r:'+id;if(!nodes.has(a))continue;for(const e of neighbors){const b='r:'+e.to;if(!nodes.has(b))continue;const aa=nodes.get(a),bb=nodes.get(b),d=geoMeters([aa.lat,aa.lon],[bb.lat,bb.lon]);const kind=e.kind==='walk'?'walk':'rail';edge(a,b,kind,kind==='rail'?stations.get(id).line:'walk',kind==='walk'?Math.max(2,d/72):Math.max(1.2,d/520+0.6))}}
+ function near(lat,lon,maxMeters,maxCount){const ix=Math.floor(lat/.0015),iy=Math.floor(lon/.0015);const found=[];const reach=Math.ceil(maxMeters/165)+1;for(let x=ix-reach;x<=ix+reach;x++)for(let y=iy-reach;y<=iy+reach;y++)for(const id of grid.get(x+','+y)||[]){const st=nodes.get(id);const d=geoMeters([lat,lon],[st.lat,st.lon]);if(d<=maxMeters)found.push([id,d])}found.sort((a,b)=>a[1]-b[1]);return found.slice(0,maxCount)}
+ // Short pedestrian transfers between opposite-side bus stops and different bus services.
+ for(const [key,st] of busByStation){const id='b:'+key;for(const [other,d] of near(st.lat,st.lon,115,7)){if(id>=other||d<2)continue;edge(id,other,'walk','walk',Math.max(.5,d/72),true)}}
+ for(const [id,coord] of Object.entries(GEO)){const rid='r:'+id;if(!nodes.has(rid))continue;for(const [b,d] of near(coord[0],coord[1],350,9))edge(rid,b,'walk','walk',Math.max(1,d/72),true)}
+ mixedGraph={nodes,adj,near};return mixedGraph;
+}
+function mixedShortest(graph,start,end){
+ // State includes onboard service to penalize changes and discourage needless transfers.
+ const heap=[];const best=new Map(),previous=new Map();
+ function push(item){heap.push(item);let i=heap.length-1;while(i>0){let p=(i-1)>>1;if(heap[p].cost<=item.cost)break;heap[i]=heap[p];i=p}heap[i]=item}
+ function pop(){const head=heap[0],last=heap.pop();if(heap.length){let i=0;while(2*i+1<heap.length){let c=2*i+1;if(c+1<heap.length&&heap[c+1].cost<heap[c].cost)c++;if(heap[c].cost>=last.cost)break;heap[i]=heap[c];i=c}heap[i]=last}return head}
+ const root=start+'|walk';best.set(root,0);push({node:start,service:'walk',key:root,cost:0});let finish=null,iter=0;
+ while(heap.length&&iter++<160000){const cur=pop();if(cur.cost>best.get(cur.key)+.0001)continue;if(cur.node===end){finish=cur.key;break}for(const e of graph.adj.get(cur.node)||[]){const changed=cur.service!=='walk'&&e.service!=='walk'&&cur.service!==e.service;
+ // Boarding a new bus or rail service after a walk also adds a modest wait penalty.
+ const boarding=e.kind!=='walk'&&cur.service==='walk';const penalty=changed?7:boarding?4:0;
+ const newService=e.kind==='walk'?'walk':e.service;const key=e.to+'|'+newService,cost=cur.cost+e.weight+penalty;
+ if(cost<(best.get(key)??Infinity)){best.set(key,cost);previous.set(key,{from:cur.key,edge:e});push({node:e.to,service:newService,key,cost})}}
+ }
+ if(!finish)return null;const steps=[];let k=finish;while(k!==root){const item=previous.get(k);if(!item)return null;const currentNode=k.split('|')[0];steps.unshift({from:item.from.split('|')[0],to:currentNode,...item.edge});k=item.from}return steps;
+}
+function mixedName(node){return (lang==='zh'?node.zh:node.en)||node.zh||node.en||node.id}
+function mixedLegs(steps,graph){const legs=[];for(const e of steps){let type=e.kind,service=e.service;const prev=legs.at(-1);if(prev&&prev.type===type&&prev.service===service&&prev.to===e.from){prev.to=e.to;prev.count++;prev.coords.push([graph.nodes.get(e.to).lat,graph.nodes.get(e.to).lon])}else{const a=graph.nodes.get(e.from),b=graph.nodes.get(e.to);legs.push({type,service,from:e.from,to:e.to,count:1,coords:[[a.lat,a.lon],[b.lat,b.lon]]})}}return legs}
+async function showMixedRoute(){
+ if(cityStatus!=='ready'||!cityMap){mixedResults.hidden=false;mixedResults.textContent=busText('Open City Map first.','請先開啟城市地圖。');return}
+ if(!from.value){mixedResults.hidden=false;mixedResults.textContent=busText('Choose a FROM station at the top of the app first.','請先在上方選擇起點車站。');return}
+ const destination=to.value?{type:'rail',id:to.value}:chosenPlace?{type:'place',lat:chosenPlace.lat,lon:chosenPlace.lon,name:chosenPlace.name}:null;
+ if(!destination){mixedResults.hidden=false;mixedResults.textContent=busText('Choose a TO station, or select a destination on City Map.','請選擇終點車站，或在城市地圖選取目的地。');return}
+ mixedResults.hidden=false;mixedResults.textContent=busText('Searching bus + rail connections…','正在搜尋公車與軌道轉乘…');
+ if(!busSnapshot){try{await getBusSnapshot()}catch(e){mixedResults.textContent=busText('Bus data not loaded. Turn on Bus and check the database file.','無法載入公車資料，請確認資料檔案。');return}}
+ const graph=makeMixedGraph(),start='r:'+from.value;
+ let end=destination.type==='rail'?'r:'+destination.id:'destination';
+ if(destination.type==='place'){
+  graph.nodes.set(end,{id:end,lat:destination.lat,lon:destination.lon,en:destination.name,zh:destination.name});graph.adj.set(end,[]);
+  for(const [id,d] of graph.near(destination.lat,destination.lon,750,14)){graph.adj.get(id).push({to:end,kind:'walk',service:'walk',weight:Math.max(.5,d/72)})}
+  for(const [id,coord] of Object.entries(GEO)){const rid='r:'+id;if(!graph.nodes.has(rid))continue;const d=geoMeters([destination.lat,destination.lon],coord);if(d<=900)graph.adj.get(rid).push({to:end,kind:'walk',service:'walk',weight:Math.max(.5,d/72)})}
+ }
+ const steps=mixedShortest(graph,start,end);
+ if(destination.type==='place'){graph.nodes.delete(end);graph.adj.delete(end);for(const [,list] of graph.adj)for(let i=list.length-1;i>=0;i--)if(list[i].to===end)list.splice(i,1)}
+ if(mixedLayer){mixedLayer.remove();mixedLayer=null}
+ if(!steps||!steps.length){mixedResults.textContent=busText('No suitable connection found in this static network. Try a closer rail station.','此靜態路網找不到適合的轉乘，請嘗試其他車站。');return}
+ // Recreate destination node for displaying the last walking segment.
+ if(destination.type==='place')graph.nodes.set(end,{id:end,lat:destination.lat,lon:destination.lon,en:destination.name,zh:destination.name});
+ const legs=mixedLegs(steps,graph);mixedLayer=L.layerGroup().addTo(cityMap);let combined=[];
+ for(const leg of legs){const shade=leg.type==='walk'?'#eeeeee':leg.type==='bus'?'#9f5aed':leg.service==='red'?'#fd6578':leg.service==='orange'?'#ffa947':leg.service==='lrt'?'#4acb96':'#80b9f8';
+ L.polyline(leg.coords,{color:'#18283d',weight:leg.type==='walk'?5:9,opacity:.65,interactive:false}).addTo(mixedLayer);
+ L.polyline(leg.coords,{color:shade,weight:leg.type==='walk'?3:5,opacity:.96,dashArray:leg.type==='walk'?'3 7':leg.type==='bus'?'8 6':null,interactive:false}).addTo(mixedLayer);combined.push(...leg.coords)}
+ if(combined.length>1)cityMap.fitBounds(L.latLngBounds(combined).pad(.12),{maxZoom:15});
+ mixedResults.replaceChildren();const h=document.createElement('strong');h.textContent=busText('Bus + rail route · experimental','公車＋軌道轉乘 · 測試版');mixedResults.append(h);
+ for(const leg of legs){const div=document.createElement('div');div.className='leg';const a=graph.nodes.get(leg.from),b=graph.nodes.get(leg.to);const type=leg.type==='bus'?'🚌 '+busRouteName(busRoutes.get(leg.service)):leg.type==='rail'?'🚈 '+({red:'MRT Red',orange:'MRT Orange',lrt:'LRT',tra:'TRA'}[leg.service]||'Rail'):'🚶 '+busText('Walk','步行');
+ div.textContent=type+' · '+mixedName(a)+' → '+mixedName(b)+(leg.type==='walk'?'':busText(' ('+leg.count+' stops)','（'+leg.count+' 站）'));mixedResults.append(div)}
+ const foot=document.createElement('div');foot.className='muted-line';foot.textContent=busText('Static stop order and approximate walking transfers only. No schedules, waiting times or road-accurate bus paths. Verify service before travel.','僅供參考：靜態站序、預估步行轉乘，無班次、候車時間或公車實際道路路線。請出行前核對。');mixedResults.append(foot);
+}
+mixedBtn.addEventListener('click',()=>void showMixedRoute());
 function updateCityButtons(){for(const [btn,id,txt] of [[cityFrom,from.value,'Departure'],[cityTo,to.value,'Destination']]){btn.hidden=!(id && cityPins.has(id));if(!btn.hidden)btn.textContent=(lang==='zh'?(btn===cityFrom?'起點':'終點'):txt)+' · '+id}}
 function flyCity(id){const pin=cityPins.get(id);if(pin&&cityMap){cityMap.flyTo(pin.getLatLng(),15,{duration:.6});pin.fire('click')}}
 cityFrom.addEventListener('click',()=>flyCity(from.value));cityTo.addEventListener('click',()=>flyCity(to.value));
@@ -1540,7 +1630,7 @@ async function officialData(){
  finally{officialAddressLoading=null}
 }
 
-// v3.21: Romanized street lookup across the whole Kaohsiung doorplate index.
+// v3.23: Romanized street lookup across the whole Kaohsiung doorplate index.
 // Built from Chinese road names in the published city dataset. The source of
 // coordinates remains the official doorplate file; romanization is a search aid.
 const ROAD_ROMAN={"一":"yi","七":"qi","三":"san","上":"shang","下":"xia","世":"shi","中":"zhong","丹":"dan","主":"zhu","久":"jiu","九":"jiu","二":"er","互":"hu","五":"wu","井":"jing","亞":"ya","亥":"hai","亨":"heng","享":"xiang","京":"jing","亭":"ting","人":"ren","仁":"ren","介":"jie","仔":"zi","仕":"shi","仙":"xian","代":"dai","仲":"zhong","伊":"yi","佑":"you","佛":"fo","作":"zuo","佳":"jia","來":"lai","係":"xi","保":"bao","信":"xin","修":"xiu","倉":"cang","倫":"lun","偉":"wei","健":"jian","傳":"chuan","儀":"yi","允":"yun","元":"yuan","充":"chong","先":"xian","光":"guang","克":"ke","內":"nei","全":"quan","八":"ba","公":"gong","六":"liu","共":"gong","其":"qi","典":"dian","再":"zai","凰":"huang","凱":"kai","利":"li","前":"qian","創":"chuang","劉":"liu","力":"li","功":"gong","加":"jia","勁":"jing","勇":"yong","勉":"mian","勝":"sheng","勤":"qin","勵":"li","化":"hua","北":"bei","區":"qu","十":"shi","千":"qian","半":"ban","卓":"zhuo","協":"xie","南":"nan","博":"bo","占":"zhan","卡":"qia","厚":"hou","厝":"cuo","原":"yuan","厦":"sha","友":"you","双":"shuang","口":"kou","古":"gu","台":"tai","右":"you","司":"si","合":"he","吉":"ji","同":"tong","名":"ming","后":"hou","向":"xiang","君":"jun","吳":"wu","周":"zhou","和":"he","哈":"ha","哨":"shao","哲":"zhe","唐":"tang","商":"shang","啟":"qi","善":"shan","喜":"xi","單":"dan","嘉":"jia","嘴":"zui","嚴":"yan","四":"si","圃":"pu","國":"guo","圍":"wei","園":"yuan","圓":"yuan","土":"tu","地":"di","坑":"keng","坔":"di","坪":"ping","城":"cheng","埔":"bu","埕":"cheng","埤":"pi","基":"ji","堀":"ku","堂":"tang","堅":"jian","堤":"di","堯":"yao","場":"chang","堺":"jie","塩":"yan","塭":"wen","墘":"qi","士":"shi","壯":"zhuang","壽":"shou","夏":"xia","外":"wai","多":"duo","夢":"meng","大":"da","天":"tian","太":"tai","央":"yang","奇":"qi","奉":"feng","好":"hao","如":"ru","姑":"gu","威":"wei","嫩":"nen","子":"zi","孔":"kong","孝":"xiao","孟":"meng","學":"xue","宅":"zhai","守":"shou","安":"an","宏":"hong","宗":"zong","官":"guan","定":"ding","宜":"yi","宣":"xuan","宮":"gong","家":"jia","宿":"su","富":"fu","察":"cha","實":"shi","寧":"zhu","寮":"liao","寶":"bao","封":"feng","專":"zhuan","小":"xiao","少":"shao","尚":"shang","尾":"wei","居":"ju","屋":"wu","屏":"ping","展":"zhan","山":"shan","岐":"qi","岡":"gang","岩":"yan","岳":"yue","岸":"an","峯":"feng","峰":"feng","島":"dao","崁":"kan","崇":"chong","崎":"qi","崑":"kun","崗":"gang","崙":"lun","嶺":"ling","川":"chuan","州":"zhou","工":"gong","左":"zuo","巨":"ju","巴":"ba","巷":"xiang","市":"shi","帝":"di","師":"shi","常":"chang","平":"ping","年":"nian","幸":"xing","庄":"zhuang","底":"di","店":"dian","府":"fu","庫":"ku","庭":"ting","康":"kang","庸":"yong","廈":"sha","廉":"lian","廍":"pou","廟":"miao","廠":"chang","廣":"guang","延":"yan","廸":"di","建":"jian","強":"qiang","影":"ying","後":"hou","得":"de","復":"fu","德":"de","心":"xin","必":"bi","志":"zhi","忠":"zhong","快":"kuai","怡":"yi","恆":"heng","恒":"heng","恩":"en","情":"qing","惟":"wei","惠":"hui","意":"yi","愛":"ai","感":"gan","慈":"ci","慶":"qing","憲":"xian","憶":"yi","應":"ying","懷":"huai","成":"cheng","房":"fang","才":"cai","打":"da","承":"cheng","技":"ji","拉":"la","拔":"ba","拕":"tuo","招":"zhao","拷":"kao","捷":"jie","提":"ti","揚":"yang","援":"yuan","撒":"sa","撫":"fu","擴":"kuo","政":"zheng","教":"jiao","敦":"dun","敬":"jing","文":"wen","斌":"bin","斑":"ban","斗":"dou","新":"xin","方":"fang","旅":"lu","旋":"xuan","族":"zu","旗":"qi","日":"ri","旭":"xu","旺":"wang","昇":"sheng","昌":"chang","明":"ming","星":"xing","春":"chun","昭":"zhao","時":"shi","晉":"jin","景":"jing","智":"zhi","曲":"qu","更":"geng","曹":"cao","曾":"ceng","會":"hui","月":"yue","有":"you","朗":"lang","朝":"zhao","本":"ben","杉":"shan","村":"cun","杭":"hang","東":"dong","松":"song","林":"lin","果":"guo","柏":"bo","柳":"liu","校":"xiao","格":"ge","桂":"gui","桃":"tao","桐":"tong","梅":"mei","梓":"zi","梧":"wu","森":"sen","楠":"nan","業":"ye","榮":"rong","樂":"le","樹":"shu","橋":"qiao","機":"ji","橫":"heng","櫃":"gui","權":"quan","欣":"xin","歌":"ge","正":"zheng","武":"wu","歸":"gui","段":"duan","殿":"dian","毅":"yi","母":"mu","毛":"mao","民":"min","氣":"qi","水":"shui","永":"yong","汕":"shan","江":"jiang","池":"chi","汽":"qi","汾":"fen","沱":"tuo","河":"he","油":"you","治":"zhi","沿":"yan","泉":"quan","法":"fa","波":"bo","泰":"tai","洋":"yang","洛":"luo","津":"jin","洲":"zhou","海":"hai","涵":"han","深":"shen","淵":"yuan","清":"qing","渤":"bo","港":"gang","湖":"hu","源":"yuan","溝":"gou","溪":"xi","溫":"wen","滇":"dian","滾":"gun","滿":"man","漁":"yu","漏":"lou","漢":"han","漯":"lei","潭":"tan","潮":"chao","潼":"tong","澄":"cheng","澤":"ze","濃":"nong","濕":"shi","濱":"bin","瀋":"shen","瀨":"lai","灣":"wan","為":"wei","烏":"wu","煌":"huang","照":"zhao","熱":"re","燕":"yan","營":"ying","爺":"ye","爾":"er","牧":"mu","犂":"li","獅":"shi","玄":"xuan","玉":"yu","王":"wang","珠":"zhu","班":"ban","球":"qiu","琅":"lang","理":"li","琉":"liu","瑞":"rui","瑪":"ma","環":"huan","瓊":"qiong","瓦":"wa","生":"sheng","產":"chan","田":"tian","由":"you","甲":"jia","畑":"tian","畓":"tap","番":"fan","疆":"jiang","登":"deng","發":"fa","白":"bai","百":"bai","皓":"hao","益":"yi","盛":"sheng","盟":"meng","監":"jian","目":"mu","直":"zhi","真":"zhen","石":"shi","砂":"sha","研":"yan","碧":"bi","碱":"jian","碼":"ma","磚":"zhuan","社":"she","祐":"you","神":"shen","祥":"xiang","祿":"lu","禎":"zhen","福":"fu","禮":"li","禹":"yu","秀":"xiu","秋":"qiu","科":"ke","程":"cheng","穀":"gu","穎":"ying","空":"kong","立":"li","站":"zhan","端":"duan","竹":"zhu","筆":"bi","等":"deng","筏":"fa","筧":"jian","管":"guan","篤":"du","籬":"li","米":"mi","粤":"yue","粵":"yue","精":"jing","糖":"tang","紅":"hong","紹":"shao","結":"jie","統":"tong","綏":"sui","經":"jing","綠":"lu","維":"wei","緯":"wei","總":"zong","繼":"ji","美":"mei","群":"qun","義":"yi","翁":"weng","翔":"xiang","翠":"cui","耀":"yao","老":"lao","聖":"sheng","聯":"lian","肚":"du","育":"yu","腳":"jiao","臥":"wo","臨":"lin","自":"zi","至":"zhi","致":"zhi","興":"xing","舊":"jiu","舍":"she","舘":"guan","航":"hang","船":"chuan","良":"liang","芋":"yu","芎":"qiong","芙":"fu","花":"hua","芳":"fang","芸":"yun","苑":"yuan","苓":"ling","英":"ying","茂":"mao","茄":"qie","茶":"cha","草":"cao","荷":"he","莊":"zhuang","莒":"ju","菜":"cai","菩":"pu","華":"hua","菱":"ling","萊":"lai","萬":"wan","葆":"bao","蓬":"peng","蓮":"lian","蕉":"jiao","藍":"lan","藏":"cang","藝":"yi","蘭":"lan","行":"xing","術":"shu","街":"jie","衙":"ya","衡":"heng","裕":"yu","裡":"li","褒":"bao","褔":"fu","西":"xi","覺":"jue","觀":"guan","角":"jiao","解":"jie","言":"yan","誠":"cheng","誼":"yi","謹":"jin","豐":"feng","豹":"bao","貞":"zhen","貴":"gui","賜":"si","賢":"xian","赤":"chi","超":"chao","越":"yue","路":"lu","踐":"jian","身":"shen","車":"che","軍":"jun","軒":"xuan","輔":"fu","輜":"zi","輝":"hui","輪":"lun","辛":"xin","辰":"chen","農":"nong","迪":"di","通":"tong","逢":"feng","連":"lian","進":"jin","運":"yun","過":"guo","道":"dao","達":"da","遠":"yuan","遼":"liao","邊":"bian","邦":"bang","都":"du","鄉":"xiang","鄭":"zheng","鄰":"lin","醒":"xing","醫":"yi","里":"li","重":"zhong","野":"ye","金":"jin","銀":"yin","銘":"ming","鋁":"lu","鋒":"feng","鋼":"gang","錦":"jin","鎮":"zhen","鐵":"tie","鑾":"luan","長":"chang","門":"men","開":"kai","關":"guan","防":"fang","阿":"a","院":"yuan","陵":"ling","陽":"yang","隆":"long","際":"ji","隨":"sui","雄":"xiong","雅":"ya","雙":"shuang","雲":"yun","霏":"fei","霞":"xia","霸":"ba","青":"qing","靖":"jing","音":"yin","頂":"ding","順":"shun","頭":"tou","風":"feng","飛":"fei","館":"guan","香":"xiang","馬":"ma","體":"ti","高":"gao","魚":"yu","鯤":"kun","鳥":"niao","鳳":"feng","鳴":"ming","鴻":"hong","鵬":"peng","鷹":"ying","鹽":"yan","鹿":"lu","麗":"li","黃":"huang","鼎":"ding","鼓":"gu","齊":"qi","龍":"long","龔":"gong"};
@@ -1669,7 +1759,7 @@ async function searchPlace(){
     (networkIssue?'Search failed or timed out; this does not mean the address does not exist. Retry on Wi-Fi or use Google Maps.':'No exact address in the official data for this search. Check the lane number or select a point on City Map.');
    return;
   }
-  // v3.21: one unambiguous, verified house-number match needs no extra tap.
+  // v3.23: one unambiguous, verified house-number match needs no extra tap.
   // Preserve the choice list when multiple different exact addresses/locations
   // are returned, or when the service only found approximate street positions.
   const exactMatches=results.filter(r=>insideKaohsiung(r) &&
